@@ -3,6 +3,7 @@ package com.desafio.Desafiospring.controller;
 import com.desafio.Desafiospring.dto.ProductRequestDTO;
 import com.desafio.Desafiospring.model.Product;
 import com.desafio.Desafiospring.repository.ProductRepo;
+import com.desafio.Desafiospring.service.IproductService;
 import com.desafio.Desafiospring.service.ProductServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private ProductServiceImp service;
+    private IproductService service;
 
     @GetMapping("/articles")
     public ResponseEntity<List<ProductRequestDTO>> getProductAll(){
