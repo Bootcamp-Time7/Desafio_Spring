@@ -31,10 +31,7 @@ public class ProductController {
      * Retorna status 200 e a lista dos produtos filtrados de acordo com os parâmetros.
      */
     @GetMapping("/articles/alphabet")
-    public ResponseEntity<List<ProductRequestDTO>> getAllByAlphabetic(
-        @RequestParam String category, 
-        @RequestParam  boolean freeShipping, 
-        @RequestParam  int order) {
+    public ResponseEntity<List<ProductRequestDTO>> getAllByAlphabetic(@RequestParam String category, @RequestParam  boolean freeShipping, @RequestParam  int order) {
        List<ProductRequestDTO> list = service.getAllByAlphabetic(category, freeShipping, order);
        return ResponseEntity.ok(list);
     }
