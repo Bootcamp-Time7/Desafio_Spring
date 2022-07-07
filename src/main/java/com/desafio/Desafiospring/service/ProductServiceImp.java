@@ -43,9 +43,12 @@ public class ProductServiceImp implements IproductService{
 
     //TODO Criar uma classe generica para o filtro de dois produtos, criar uma exceçao para nao receber quantidade
     @Override
-    public List<ProductRequestDTO> getAllByTwoFilters(String firstFilter, boolean secondFilter) {
+    public  <T, G > List<ProductRequestDTO> getAllByTwoFilters(T firstFilter,  G secondFilter) {
         return null;
     }
+
+
+
 
 
     //TODO criar uma classe ParamOrderAlphabetic para aceitar o alfabético crescente => 0, alfabético decrescente => 1

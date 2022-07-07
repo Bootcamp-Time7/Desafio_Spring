@@ -8,6 +8,7 @@ import com.desafio.Desafiospring.service.ProductServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,5 +26,11 @@ public class ProductController {
         List<ProductRequestDTO> list =  service.getProductAll();
         return ResponseEntity.ok(list);
     }
+
+    @GetMapping("/{firstFilter}/{secondfilter}")
+    public <T, G > ResponseEntity<List<ProductRequestDTO>> getVeiculo(@PathVariable T firstFilter, G secondfilter) {
+        return ResponseEntity.ok().body(service.getAllByTwoFilters(firstFilter, secondfilter));
+    }
+
 
 }

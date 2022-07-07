@@ -17,7 +17,7 @@ public interface IproductService {
     List<ProductRequestDTO> getAllByCategory(String category);
 
     //TODO Criar uma classe generica para o filtro de dois produtos, criar uma exceçao para nao receber quantidade
-    List<ProductRequestDTO> getAllByTwoFilters(String firstFilter,  boolean secondFilter);
+    <T, G > List<ProductRequestDTO> getAllByTwoFilters(T firstFilter,  G secondFilter);
 
     //TODO criar uma classe ParamOrderAlphabetic para aceitar o alfabético crescente => 0, alfabético decrescente => 1
     List<ProductRequestDTO> getAllByAlphabetic(String category, boolean freeShipping, int order );
