@@ -1,5 +1,7 @@
 package com.desafio.Desafiospring.repository;
+
 import com.desafio.Desafiospring.model.Product;
+
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -15,6 +17,15 @@ public class ProductRepo {
 
     private final  String fileJson = "src/main/resources/products.json";
 
+//    /**
+//     *
+//     *  author: Amanda, Gabryel, Marina, Mônica, Nicole, Yago
+//     *  O presente método permite retorno de todos os valores do banco de dados, convertendo o arquivo json para uma lista do tipo Produto, reconhecida pelo java.
+//     *  return: List<Product>
+//     *
+//     */
+
+
      public List<Product> getProductAll(){
          ObjectMapper mapperJson = new ObjectMapper();
          List<Product> list = null;
@@ -29,6 +40,15 @@ public class ProductRepo {
          }
          return list;
      }
+
+//    /**
+//     *
+//     * author: Yago
+//     * O presente método permite que seja salva a lista de produtos no banco de dados
+//     * param:
+//     * return: List<Product>
+//     *
+//     */
 
      public List<Product> saveProducts(List<Product> products){
          //TODO CONTINUAR
