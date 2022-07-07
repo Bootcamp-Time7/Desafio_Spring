@@ -15,6 +15,9 @@ public class ProductController {
 
     @Autowired
     private IproductService service;
+    private Optional<String> category;
+    private Optional<Boolean> freeShipping;
+    private Optional<String> prestige;
 
     @GetMapping("/")
     public ResponseEntity<List<ProductRequestDTO>> getProductAll(){
@@ -27,6 +30,9 @@ public class ProductController {
             @RequestParam("category") Optional<String> category,
             @RequestParam("freeShipping") Optional<Boolean> freeShipping,
             @RequestParam("prestige") Optional<String> prestige) {
+        this.category = category;
+        this.freeShipping = freeShipping;
+        this.prestige = prestige;
 
 
         return ResponseEntity.ok().body(service.getAllByFilters(category, freeShipping, prestige));

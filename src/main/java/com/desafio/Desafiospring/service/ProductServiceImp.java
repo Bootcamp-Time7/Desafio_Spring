@@ -45,22 +45,18 @@ public class ProductServiceImp implements IproductService{
     //TODO Criar uma classe generica para o filtro de dois produtos, criar uma exceçao para nao receber quantidade
     @Override
     public List<ProductRequestDTO> getAllByFilters(Optional<String> category, Optional<Boolean> freeShipping, Optional<String> prestige) {
-       List<ProductRequestDTO> list  =  this.getProductAll();
+        List<ProductRequestDTO> list  =  this.getProductAll();
        if(category.isPresent() && freeShipping.isPresent()){
-           //todo chamar funçao para esse filtro
-           //return
+           List<ProductRequestDTO> listFilter =  list.stream()
+                   .filter(q -> q.getCategory().equals(category.get()) && q.isFreeShipping()).collect(Collectors.toList());
+           return  listFilter;
        }
        if(prestige.isPresent() && freeShipping.isPresent()){
-           //todo chamar funcao para esse filtro
-           //return
+           List<ProductRequestDTO> listFilter =  list.stream()
+                   .filter(q -> q.getPrestige().equals(prestige.get()) && q.isFreeShipping()).collect(Collectors.toList());
+           return  listFilter;
        }
-
-       List<ProductRequestDTO> listFilter = (List<ProductRequestDTO>) list.stream()
-               .filter(q -> q.getCategory().equals("tecnology")).collect(Collectors.toList());
-        System.out.println(firstFilter);
-        System.out.println(secondFilter);
-
-        return listFilter;
+         return list;
     }
 
 

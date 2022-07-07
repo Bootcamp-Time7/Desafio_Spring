@@ -18,5 +18,24 @@
         "quantity": 20,
         "freeShipping": false,
         "prestige": "****"
-    }
+    },
+    {
+        "productId": 3,
+        "name": "Telefone ",
+        "category": "tecnology",
+        "brand": "sony",
+        "price": 1800,
+        "quantity": 2,
+        "freeShipping": false,
+        "prestige": "****"
+    },
+    {
+        "productId": 4,
+        "name": "Tv 42 polegadas",
+        "category": "tecnology",
+        "brand": "sony",
+        "price": 1800,
+        "quantity": 2,
+        "freeShipping": true,
+        "prestige": "****"    }
 ]
