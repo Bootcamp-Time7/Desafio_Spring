@@ -18,6 +18,10 @@ public class ProductServiceImp implements IproductService{
     @Autowired
     ProductRepo repo;
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<ProductRequestDTO> getProductAll() {
         List<Product> listProducts = repo.getProductAll();
@@ -41,7 +45,13 @@ public class ProductServiceImp implements IproductService{
         return null;
     }
 
-
+    /**
+     *
+     * @param category
+     * @param freeShipping
+     * @param prestige
+     * @return
+     */
     @Override
     public List<ProductRequestDTO> getAllByFilters(Optional<String> category, Optional<Boolean> freeShipping, Optional<String> prestige) {
         List<ProductRequestDTO> lista = null;
@@ -62,12 +72,20 @@ public class ProductServiceImp implements IproductService{
          return lista;
     }
 
-
+    /**
+     *
+     * @param list
+     * @param category
+     * @param freeShipping
+     * @return
+     */
     public   List<ProductRequestDTO> filterByCategoryFreeshipping( List<ProductRequestDTO> list, String category, boolean freeShipping ){
         List<ProductRequestDTO> lista = null;
         try {
             List<ProductRequestDTO> listFilter = list.stream()
-                    .filter(q -> q.getCategory().equals(category) && q.isFreeShipping()).collect(Collectors.toList());
+                    .filter(q -> q.getCategory().equals(category) && q.isFreeShipping())
+                    .collect(Collectors.toList());
+
             return listFilter;
         } catch (Exception e){
             System.out.println(e.getMessage());
@@ -80,8 +98,11 @@ public class ProductServiceImp implements IproductService{
         List<ProductRequestDTO> lista = null;
         try {
             int prestigeLength = prestige.length();
+                if (prestige.length() <= 1) throw new Exception("Por favor, insira pelo menos uma estrela de avaliação");
+
             List<ProductRequestDTO> listFilter = list.stream()
-                    .filter(q -> q.getPrestige().length() >= prestigeLength && q.isFreeShipping() ).collect(Collectors.toList());
+                    .filter(q -> q.getPrestige().length() >= prestigeLength && q.isFreeShipping() )
+                    .collect(Collectors.toList());
             return listFilter;
         } catch (Exception e){
             System.out.println(e.getMessage());

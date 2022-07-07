@@ -25,12 +25,4 @@ public class ProductRequestDTO  {
         this.prestige = product.getPrestige();
     }
 
-
-//    @Override
-//    public int compareTo(String prestige) {
-//        if(this.getPrestige().length() >= prestige.length())
-//            return 1;
-//        if(this.getPrestige().length() <= prestige.length())
-//            return 1;
-//        return 0;    }
 }
