@@ -1,12 +1,22 @@
 [
     {
-        "productId": 0,
-        "name": null,
-        "category": null,
-        "brand": null,
-        "price": null,
-        "quantity": null,
-        "freeShipping": null,
-        "prestige": null
+        "productId": 1,
+        "name": "Tv 42 polegadas",
+        "category": "tecnology",
+        "brand": "sony",
+        "price": 1800,
+        "quantity": 2,
+        "freeShipping": true,
+        "prestige": "****"
+    },
+    {
+        "productId": 2,
+        "name": "Base em pó",
+        "category": "Beauty",
+        "brand": "Boticario",
+        "price": 120.98,
+        "quantity": 20,
+        "freeShipping": false,
+        "prestige": "****"
     }
 ]

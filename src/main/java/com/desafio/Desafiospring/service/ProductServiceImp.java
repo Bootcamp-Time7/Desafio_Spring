@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,8 +44,23 @@ public class ProductServiceImp implements IproductService{
 
     //TODO Criar uma classe generica para o filtro de dois produtos, criar uma exceçao para nao receber quantidade
     @Override
-    public  <T, G > List<ProductRequestDTO> getAllByTwoFilters(T firstFilter,  G secondFilter) {
-        return null;
+    public List<ProductRequestDTO> getAllByFilters(Optional<String> category, Optional<Boolean> freeShipping, Optional<String> prestige) {
+       List<ProductRequestDTO> list  =  this.getProductAll();
+       if(category.isPresent() && freeShipping.isPresent()){
+           //todo chamar funçao para esse filtro
+           //return
+       }
+       if(prestige.isPresent() && freeShipping.isPresent()){
+           //todo chamar funcao para esse filtro
+           //return
+       }
+
+       List<ProductRequestDTO> listFilter = (List<ProductRequestDTO>) list.stream()
+               .filter(q -> q.getCategory().equals("tecnology")).collect(Collectors.toList());
+        System.out.println(firstFilter);
+        System.out.println(secondFilter);
+
+        return listFilter;
     }
 
 

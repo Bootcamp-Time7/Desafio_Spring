@@ -1,35 +1,35 @@
 package com.desafio.Desafiospring.controller;
 
 import com.desafio.Desafiospring.dto.ProductRequestDTO;
-import com.desafio.Desafiospring.model.Product;
-import com.desafio.Desafiospring.repository.ProductRepo;
 import com.desafio.Desafiospring.service.IproductService;
-import com.desafio.Desafiospring.service.ProductServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/articles")
 public class ProductController {
 
     @Autowired
     private IproductService service;
 
-    @GetMapping("/articles")
+    @GetMapping("/")
     public ResponseEntity<List<ProductRequestDTO>> getProductAll(){
         List<ProductRequestDTO> list =  service.getProductAll();
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/{firstFilter}/{secondfilter}")
-    public <T, G > ResponseEntity<List<ProductRequestDTO>> getVeiculo(@PathVariable T firstFilter, G secondfilter) {
-        return ResponseEntity.ok().body(service.getAllByTwoFilters(firstFilter, secondfilter));
+    @GetMapping("")
+    public ResponseEntity<List<ProductRequestDTO>> getAllByTwoFilters(
+            @RequestParam("category") Optional<String> category,
+            @RequestParam("freeShipping") Optional<Boolean> freeShipping,
+            @RequestParam("prestige") Optional<String> prestige) {
+
+
+        return ResponseEntity.ok().body(service.getAllByFilters(category, freeShipping, prestige));
     }
 
 
