@@ -13,7 +13,7 @@ public interface IproductService {
     List<ProductResponseDTO> saveProducts(List<Product> products);
 
     //TODO Criar DTO para response e request do carrinho
-    List<CartRequestDTO> createShoppingCart(List<ProductResponseDTO> products);
+
     List<ProductRequestDTO> getProductAll();
     List<ProductRequestDTO> getAllByCategory(String category);
 
