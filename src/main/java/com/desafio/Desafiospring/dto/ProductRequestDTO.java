@@ -4,7 +4,7 @@ import com.desafio.Desafiospring.model.Product;
 import lombok.Data;
 
 @Data
-public class ProductRequestDTO {
+public class ProductRequestDTO  {
     private long productId;
     private String name;
     private String category;
@@ -24,6 +24,5 @@ public class ProductRequestDTO {
         this.freeShipping = product.isFreeShipping();
         this.prestige = product.getPrestige();
     }
-
 
 }

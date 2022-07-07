@@ -6,9 +6,10 @@ import com.desafio.Desafiospring.dto.ProductResponseDTO;
 import com.desafio.Desafiospring.model.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IproductService {
-
+    void saveProductsVoid(List<Product> products);
     List<ProductResponseDTO> saveProducts(List<Product> products);
 
     //TODO Criar DTO para response e request do carrinho
@@ -17,7 +18,7 @@ public interface IproductService {
     List<ProductRequestDTO> getAllByCategory(String category);
 
     //TODO Criar uma classe generica para o filtro de dois produtos, criar uma exceçao para nao receber quantidade
-    List<ProductRequestDTO> getAllByTwoFilters(String firstFilter,  boolean secondFilter);
+    List<ProductRequestDTO> getAllByFilters(Optional<String> category, Optional<Boolean> freeShipping, Optional<String> prestige);
 
     //TODO criar uma classe ParamOrderAlphabetic para aceitar o alfabético crescente => 0, alfabético decrescente => 1
     List<ProductRequestDTO> getAllByAlphabetic(String category, boolean freeShipping, int order );

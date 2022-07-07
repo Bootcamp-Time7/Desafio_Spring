@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,9 +43,15 @@ public class ProductServiceImp implements IproductService{
 //     *
 //     */
 
+
+    @Override
+    public void saveProductsVoid(List<Product> products) {
+        repo.saveProductsVoid(products);
+
+    }
+
     @Override
     public List<ProductResponseDTO> saveProducts(List<Product> products) {
-
         return null;
     }
 
@@ -79,11 +86,69 @@ public class ProductServiceImp implements IproductService{
 
     }
 
-
-    //TODO Criar uma classe generica para o filtro de dois produtos, criar uma exceçao para nao receber quantidade
+    /**
+     *
+     * @param category
+     * @param freeShipping
+     * @param prestige
+     * @return
+     */
     @Override
-    public List<ProductRequestDTO> getAllByTwoFilters(String firstFilter, boolean secondFilter) {
-        return null;
+    public List<ProductRequestDTO> getAllByFilters(Optional<String> category, Optional<Boolean> freeShipping, Optional<String> prestige) {
+        List<ProductRequestDTO> lista = null;
+
+        try {
+            List<ProductRequestDTO> list  =  this.getProductAll();
+            if(category.isPresent() && freeShipping.isPresent()){
+                return this.filterByCategoryFreeshipping(list, category.get(), true);
+            }
+            if(prestige.isPresent() && freeShipping.isPresent()){
+                return  this.filterByPrestigeFreeshipping(list, prestige.get(), true);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+
+         return lista;
+    }
+
+    /**
+     *
+     * @param list
+     * @param category
+     * @param freeShipping
+     * @return
+     */
+    public   List<ProductRequestDTO> filterByCategoryFreeshipping( List<ProductRequestDTO> list, String category, boolean freeShipping ){
+        List<ProductRequestDTO> lista = null;
+        try {
+            List<ProductRequestDTO> listFilter = list.stream()
+                    .filter(q -> q.getCategory().equals(category) && q.isFreeShipping())
+                    .collect(Collectors.toList());
+
+            return listFilter;
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+      }
+        return lista;
+    }
+
+
+    public   List<ProductRequestDTO> filterByPrestigeFreeshipping( List<ProductRequestDTO> list, String prestige, boolean freeShipping ){
+        List<ProductRequestDTO> lista = null;
+        try {
+            int prestigeLength = prestige.length();
+                if (prestige.length() <= 1) throw new Exception("Por favor, insira pelo menos uma estrela de avaliação");
+
+            List<ProductRequestDTO> listFilter = list.stream()
+                    .filter(q -> q.getPrestige().length() >= prestigeLength && q.isFreeShipping() )
+                    .collect(Collectors.toList());
+            return listFilter;
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return lista;
     }
 
 
