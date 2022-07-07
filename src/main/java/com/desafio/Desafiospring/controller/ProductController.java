@@ -26,6 +26,7 @@ public class ProductController {
     private Optional<String> prestige;
 
 
+
 //    /**
 //     *
 //     * authors: Amanda, Gabryel, Marina, Mônica, Nicole, Yago
@@ -41,6 +42,13 @@ public class ProductController {
         return ResponseEntity.ok(list);
     }
 
+    /**
+     *
+     * @param category
+     * @param freeShipping
+     * @param prestige
+     * @return
+     */
     /**
      * @author Nicole Calderari
      * Esta é uma rota get, nela foi colocado um fragmento a mais na url "/alphabet" porque estava dando conflito
@@ -67,7 +75,10 @@ public class ProductController {
         return ResponseEntity.ok().body(service.getAllByFilters(category, freeShipping, prestige));
     }
 
-
+    /**
+     *
+     * @param products
+     */
     @PostMapping("/add")
     public void saveProductsVoid(@RequestBody List<Product> products){
         service.saveProductsVoid(products);

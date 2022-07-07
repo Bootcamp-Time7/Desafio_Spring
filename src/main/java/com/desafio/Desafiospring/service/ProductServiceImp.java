@@ -87,7 +87,7 @@ public class ProductServiceImp implements IproductService{
     }
 
     /**
-     *
+     *author:Amanda
      * @param category
      * @param freeShipping
      * @param prestige
@@ -114,7 +114,7 @@ public class ProductServiceImp implements IproductService{
     }
 
     /**
-     *
+     *author:Amanda
      * @param list
      * @param category
      * @param freeShipping
@@ -134,7 +134,13 @@ public class ProductServiceImp implements IproductService{
         return lista;
     }
 
-
+    /**
+     *author:Amanda
+     * @param list
+     * @param prestige
+     * @param freeShipping
+     * @return
+     */
     public   List<ProductRequestDTO> filterByPrestigeFreeshipping( List<ProductRequestDTO> list, String prestige, boolean freeShipping ){
         List<ProductRequestDTO> lista = null;
         try {
