@@ -8,7 +8,7 @@ import com.desafio.Desafiospring.model.Product;
 import java.util.List;
 
 public interface IproductService {
-
+    void saveProductsVoid(List<Product> products);
     List<ProductResponseDTO> saveProducts(List<Product> products);
 
     //TODO Criar DTO para response e request do carrinho
