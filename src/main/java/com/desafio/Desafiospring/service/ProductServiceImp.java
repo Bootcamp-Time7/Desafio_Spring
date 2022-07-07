@@ -51,7 +51,33 @@ public class ProductServiceImp implements IproductService{
     //TODO criar uma classe ParamOrderAlphabetic para aceitar o alfabético crescente => 0, alfabético decrescente => 1
     @Override
     public List<ProductRequestDTO> getAllByAlphabetic(String category, boolean freeShipping, int order) {
-        return null;
+        List<Product> listProducts = repo.getProductAll(); // colocar método que a Mônica ainda vai fazer
+        List<ProductRequestDTO> listProductsDTO = null;
+
+        if(order == 0 ) {
+
+           listProductsDTO = listProducts.stream()
+            .map(ProductRequestDTO::new)
+            .filter((product) -> product.getCategory().equals(category)) // ai deleta essa linha.
+            .filter((product) -> product.isFreeShipping() == freeShipping)
+            .sorted((product1, product2) -> product1.getName().compareTo(product2.getName())) // ordem alfabética normal
+            .collect(Collectors.toList());
+         
+
+        } else if (order == 1) {
+            listProductsDTO = listProducts.stream()
+            .map(ProductRequestDTO::new)
+            .filter((product) -> product.getCategory().equals(category)) 
+            .filter((product) -> product.isFreeShipping() == freeShipping)
+            .sorted((product1, product2) -> product2.getName().compareTo(product1.getName())) // de trás pra frente
+            .collect(Collectors.toList());
+       
+        }
+
+
+       return listProductsDTO;
+   
+        
     }
 
 

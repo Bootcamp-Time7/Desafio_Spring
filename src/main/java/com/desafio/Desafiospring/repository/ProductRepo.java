@@ -1,5 +1,6 @@
 package com.desafio.Desafiospring.repository;
 
+import com.desafio.Desafiospring.dto.ProductRequestDTO;
 import com.desafio.Desafiospring.model.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -32,5 +33,20 @@ public class ProductRepo {
          //TODO CONTINUAR
          return null;
      }
+     
+    //  public List<ProductRequestDTO> getAllByAlphabetic(String category, boolean freeShipping, int order ) {
+    //     ObjectMapper mapperJson = new ObjectMapper();
+    //     List<ProductRequestDTO> list = null;
+
+    //     try {
+    //         list = Arrays.asList(mapperJson.readValue( new File(fileJson), ProductRequestDTO[].class));
+        
+    //     }catch (Exception e){
+    //         System.out.println(e.getMessage());
+    //         System.out.println(e.getCause());
+
+    //     }
+    //     return list;
+    //  }
 
 }
