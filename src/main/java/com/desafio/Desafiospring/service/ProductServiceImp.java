@@ -17,6 +17,12 @@ public class ProductServiceImp implements IproductService{
     @Autowired
     ProductRepo repo;
 
+    /**
+     *
+     * @author: Amanda, Gabryel, Marina, Mônica, Nicole, Yago
+     * Permite acesso ao método getProductAll do repositório, cria uma lista de produtos do tipo ProductRequestDTO e retorna essa lista
+     *
+     */
     @Override
     public List<ProductRequestDTO> getProductAll() {
         List<Product> listProducts = repo.getProductAll();
@@ -25,8 +31,16 @@ public class ProductServiceImp implements IproductService{
         return listProductsDTO;
     }
 
+
+    /**
+     *
+     * @author: Yago
+     * Permite acesso ao método saveProducts do repositório
+     *
+     */
     @Override
     public List<ProductResponseDTO> saveProducts(List<Product> products) {
+
         return null;
     }
 
@@ -35,9 +49,26 @@ public class ProductServiceImp implements IproductService{
         return null;
     }
 
+    /**
+     *
+     * @author: Mônica
+     * @param: String category
+     * Permite acesso ao método getProductAll do repositório. Cria uma nova lista do tipo ProductRequestDTO. É feito um filtro por categoria de produtos,
+     * inseridos os objetos to tipo ProductRequestDTO e criada a lista final.
+     * @return <ProductRequestDTO> listProductsDtoCategory
+     *
+     */
+
     @Override
     public List<ProductRequestDTO> getAllByCategory(String category) {
-        return null;
+
+        List<Product> listProducts = repo.getProductAll();
+        List<ProductRequestDTO> listProductsDtoCategory = listProducts.stream()
+                .filter(productDto->productDto.getCategory().equalsIgnoreCase(category))
+                .map(ProductRequestDTO::new)
+                .collect(Collectors.toList());
+        return listProductsDtoCategory;
+
     }
 
 

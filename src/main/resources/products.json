@@ -2,7 +2,7 @@
     {
         "productId": 0,
         "name": null,
-        "category": null,
+        "category": "ferramentas",
         "brand": null,
         "price": null,
         "quantity": null,
