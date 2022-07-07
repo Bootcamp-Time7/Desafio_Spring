@@ -5,9 +5,12 @@ import com.desafio.Desafiospring.service.IproductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +40,20 @@ public class ProductController {
         List<ProductRequestDTO> list =  service.getProductAll();
         return ResponseEntity.ok(list);
     }
+
+    /**
+     * @author Nicole Calderari
+     * Esta é uma rota get, nela foi colocado um fragmento a mais na url "/alphabet" porque estava dando conflito
+     * com a rota genérica de todos os produtos.
+     * Esse método requisita os parâmetros da url e os passa para a função getAllByAlphabetic que faz a ordenação.
+     * Retorna status 200 e a lista dos produtos filtrados de acordo com os parâmetros.
+     */
+    @GetMapping("/articles/alphabet")
+    public ResponseEntity<List<ProductRequestDTO>> getAllByAlphabetic(@RequestParam String category, @RequestParam  boolean freeShipping, @RequestParam  int order) {
+       List<ProductRequestDTO> list = service.getAllByAlphabetic(category, freeShipping, order);
+       return ResponseEntity.ok(list);
+    }
+
 
     @GetMapping("/search")
     public ResponseEntity<List<ProductRequestDTO>> getAllByTwoFilters(
@@ -73,6 +90,7 @@ public class ProductController {
         return ResponseEntity.ok(listProductByCategory);
 
     }
+
 
 
 

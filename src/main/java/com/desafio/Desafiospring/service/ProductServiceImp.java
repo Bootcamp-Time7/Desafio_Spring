@@ -153,9 +153,43 @@ public class ProductServiceImp implements IproductService{
 
 
     //TODO criar uma classe ParamOrderAlphabetic para aceitar o alfabético crescente => 0, alfabético decrescente => 1
+
+    /**
+     * @author: Nicole Calderari
+     * Esse método faz o filtro dos produtos baseado nos parâmetros que chegam pela requisição do usuário e ordena alfabeticamente,
+     * Transforma a lista de produtos em Steam e aplica as HOF`S de filtro para pegar os produtos de acordo com os parâmetros passados
+     * depois ordena alfabeticamente de A-Z ou Z-A, dependendo do número que foi passado pelo param Order.
+     * Retorna os produtos filtrados e convertidos para DTO.
+     */
     @Override
     public List<ProductRequestDTO> getAllByAlphabetic(String category, boolean freeShipping, int order) {
-        return null;
+        List<Product> listProducts = repo.getProductAll(); // colocar método que a Mônica ainda vai fazer
+        List<ProductRequestDTO> listProductsDTO = null;
+
+        if(order == 0 ) {
+
+           listProductsDTO = listProducts.stream()
+           .filter((product) -> product.getCategory().equalsIgnoreCase(category)) // ai deleta essa linha.
+           .filter((product) -> product.isFreeShipping())
+           .sorted((product1, product2) -> product1.getName().compareTo(product2.getName())) // ordem alfabética normal
+           .map(ProductRequestDTO::new)
+           .collect(Collectors.toList());
+         
+
+        } else if (order == 1) {
+            listProductsDTO = listProducts.stream()
+            .filter((product) -> product.getCategory().equals(category)) 
+            .filter((product) -> product.isFreeShipping())
+            .sorted((product1, product2) -> product2.getName().compareTo(product1.getName())) // de trás pra frente
+            .map(ProductRequestDTO::new)
+            .collect(Collectors.toList());
+       
+        }
+
+
+       return listProductsDTO;
+   
+        
     }
 
 
