@@ -79,8 +79,9 @@ public class ProductServiceImp implements IproductService{
     public   List<ProductRequestDTO> filterByPrestigeFreeshipping( List<ProductRequestDTO> list, String prestige, boolean freeShipping ){
         List<ProductRequestDTO> lista = null;
         try {
+            int prestigeLength = prestige.length();
             List<ProductRequestDTO> listFilter = list.stream()
-                    .filter(q -> q.getPrestige().equals(prestige) && q.isFreeShipping()).collect(Collectors.toList());
+                    .filter(q -> q.getPrestige().length() >= prestigeLength && q.isFreeShipping() ).collect(Collectors.toList());
             return listFilter;
         } catch (Exception e){
             System.out.println(e.getMessage());
