@@ -103,7 +103,6 @@ public class ProductServiceImp implements IproductService{
         return lista;
     }
 
-
     public   List<ProductRequestDTO> filterByPrestigeFreeshipping( List<ProductRequestDTO> list, String prestige, boolean freeShipping ){
         List<ProductRequestDTO> lista = null;
         try {
