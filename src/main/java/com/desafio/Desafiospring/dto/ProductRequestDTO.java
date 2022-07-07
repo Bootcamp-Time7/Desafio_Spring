@@ -4,7 +4,7 @@ import com.desafio.Desafiospring.model.Product;
 import lombok.Data;
 
 @Data
-public class ProductRequestDTO {
+public class ProductRequestDTO  {
     private long productId;
     private String name;
     private String category;
@@ -26,4 +26,11 @@ public class ProductRequestDTO {
     }
 
 
+//    @Override
+//    public int compareTo(String prestige) {
+//        if(this.getPrestige().length() >= prestige.length())
+//            return 1;
+//        if(this.getPrestige().length() <= prestige.length())
+//            return 1;
+//        return 0;    }
 }

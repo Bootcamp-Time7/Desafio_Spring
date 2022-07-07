@@ -7,7 +7,7 @@
         "price": 1800,
         "quantity": 2,
         "freeShipping": true,
-        "prestige": "****"
+        "prestige": "*****"
     },
     {
         "productId": 2,
@@ -16,7 +16,7 @@
         "brand": "Boticario",
         "price": 120.98,
         "quantity": 20,
-        "freeShipping": false,
+        "freeShipping": true,
         "prestige": "****"
     },
     {
@@ -37,5 +37,5 @@
         "price": 1800,
         "quantity": 2,
         "freeShipping": true,
-        "prestige": "****"    }
+        "prestige": "***"    }
 ]
