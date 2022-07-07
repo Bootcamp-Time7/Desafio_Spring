@@ -103,6 +103,13 @@ public class ProductServiceImp implements IproductService{
         return lista;
     }
 
+    /**
+     *
+     * @param list
+     * @param prestige
+     * @param freeShipping
+     * @return
+     */
     public   List<ProductRequestDTO> filterByPrestigeFreeshipping( List<ProductRequestDTO> list, String prestige, boolean freeShipping ){
         List<ProductRequestDTO> lista = null;
         try {

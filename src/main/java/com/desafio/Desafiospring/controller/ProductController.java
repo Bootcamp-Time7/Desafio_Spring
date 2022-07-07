@@ -19,12 +19,20 @@ public class ProductController {
     private Optional<Boolean> freeShipping;
     private Optional<String> prestige;
 
+
     @GetMapping("")
     public ResponseEntity<List<ProductRequestDTO>> getProductAll(){
         List<ProductRequestDTO> list =  service.getProductAll();
         return ResponseEntity.ok(list);
     }
 
+    /**
+     *
+     * @param category
+     * @param freeShipping
+     * @param prestige
+     * @return
+     */
     @GetMapping("/search")
     public ResponseEntity<List<ProductRequestDTO>> getAllByTwoFilters(
             @RequestParam("category") Optional<String> category,
@@ -37,7 +45,10 @@ public class ProductController {
         return ResponseEntity.ok().body(service.getAllByFilters(category, freeShipping, prestige));
     }
 
-
+    /**
+     *
+     * @param products
+     */
     @PostMapping("/add")
     public void saveProductsVoid(@RequestBody List<Product> products){
         service.saveProductsVoid(products);
