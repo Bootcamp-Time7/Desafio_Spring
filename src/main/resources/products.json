@@ -1,12 +1,12 @@
 [
     {
-        "productId": 0,
-        "name": null,
-        "category": null,
-        "brand": null,
-        "price": null,
-        "quantity": null,
-        "freeShipping": null,
-        "prestige": null
-    }
+    "productId": 1,
+    "name": "Serra de Bancada",
+    "category": "Ferramentas",
+    "brand": "FORTGPRO",
+    "price": 1800.00,
+    "quantity": 5,
+    "freeShipping": true,
+    "prestige": "****"
+}
 ]

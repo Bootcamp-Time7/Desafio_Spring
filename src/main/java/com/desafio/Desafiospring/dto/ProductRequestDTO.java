@@ -1,9 +1,15 @@
 package com.desafio.Desafiospring.dto;
 
 import com.desafio.Desafiospring.model.Product;
-import lombok.Data;
+import lombok.*;
 
-@Data
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductRequestDTO {
     private long productId;
     private String name;
@@ -25,5 +31,22 @@ public class ProductRequestDTO {
         this.prestige = product.getPrestige();
     }
 
+    public static Product convertProductRequestDTO(ProductRequestDTO productRequestDTO) {
+        return Product.builder()
+                .productId(productRequestDTO.getProductId())
+                .name(productRequestDTO.getName())
+                .category(productRequestDTO.getCategory()).brand(productRequestDTO.getBrand())
+                .price(productRequestDTO.getPrice())
+                .quantity(productRequestDTO.getQuantity())
+                .freeShipping(productRequestDTO.isFreeShipping())
+                .prestige(productRequestDTO.getPrestige()).build();
+    }
 
+    public static List<Product> convertListProductRequest(List<ProductRequestDTO> listProductRequest){
+        return listProductRequest.stream().map(ProductRequestDTO::convertProductRequestDTO).collect(Collectors.toList());
+    }
+    public static List<ProductRequestDTO> convertListProduct(List<Product> listProduct) {
+        List<ProductRequestDTO> listaResponseDTO = listProduct.stream().map(ProductRequestDTO::new).collect(Collectors.toList());
+        return listaResponseDTO;
+    }
 }

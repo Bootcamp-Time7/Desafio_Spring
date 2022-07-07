@@ -9,25 +9,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImp implements IproductService{
 
     @Autowired
-    ProductRepo repo;
+    private ProductRepo repo;
 
     @Override
     public List<ProductRequestDTO> getProductAll() {
-        List<Product> listProducts = repo.getProductAll();
-        List<ProductRequestDTO> listProductsDTO = listProducts.stream()
-                .map(ProductRequestDTO::new).collect(Collectors.toList());
-        return listProductsDTO;
+        List<Product> productList = repo.getProductAll();
+        List<ProductRequestDTO> productRequestDTOList = ProductRequestDTO.convertListProduct(productList);
+        return productRequestDTOList;
     }
 
     @Override
-    public List<ProductResponseDTO> saveProducts(List<Product> products) {
-        return null;
+    public void saveProducts(List<Product> productList) {
+        repo.saveProducts(productList);
     }
 
     @Override
