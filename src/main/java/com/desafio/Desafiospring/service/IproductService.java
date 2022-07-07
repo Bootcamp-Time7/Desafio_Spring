@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IproductService {
-
+    void saveProductsVoid(List<Product> products);
     List<ProductResponseDTO> saveProducts(List<Product> products);
 
     //TODO Criar DTO para response e request do carrinho

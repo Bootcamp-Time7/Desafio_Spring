@@ -1,5 +1,5 @@
 package com.desafio.Desafiospring.controller;
-
+import com.desafio.Desafiospring.model.Product;
 import com.desafio.Desafiospring.dto.ProductRequestDTO;
 import com.desafio.Desafiospring.service.IproductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +34,14 @@ public class ProductController {
         this.freeShipping = freeShipping;
         this.prestige = prestige;
 
-
         return ResponseEntity.ok().body(service.getAllByFilters(category, freeShipping, prestige));
     }
 
+
+    @PostMapping("/add")
+    public void saveProductsVoid(@RequestBody List<Product> products){
+        service.saveProductsVoid(products);
+
+    }
 
 }
