@@ -42,25 +42,51 @@ public class ProductServiceImp implements IproductService{
     }
 
 
-    //TODO Criar uma classe generica para o filtro de dois produtos, criar uma exceçao para nao receber quantidade
     @Override
     public List<ProductRequestDTO> getAllByFilters(Optional<String> category, Optional<Boolean> freeShipping, Optional<String> prestige) {
-        List<ProductRequestDTO> list  =  this.getProductAll();
-       if(category.isPresent() && freeShipping.isPresent()){
-           List<ProductRequestDTO> listFilter =  list.stream()
-                   .filter(q -> q.getCategory().equals(category.get()) && q.isFreeShipping()).collect(Collectors.toList());
-           return  listFilter;
-       }
-       if(prestige.isPresent() && freeShipping.isPresent()){
-           List<ProductRequestDTO> listFilter =  list.stream()
-                   .filter(q -> q.getPrestige().equals(prestige.get()) && q.isFreeShipping()).collect(Collectors.toList());
-           return  listFilter;
-       }
-         return list;
+        List<ProductRequestDTO> lista = null;
+
+        try {
+            List<ProductRequestDTO> list  =  this.getProductAll();
+            if(category.isPresent() && freeShipping.isPresent()){
+                return this.filterByCategoryFreeshipping(list, category.get(), true);
+            }
+            if(prestige.isPresent() && freeShipping.isPresent()){
+                return  this.filterByPrestigeFreeshipping(list, prestige.get(), true);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+
+         return lista;
     }
 
 
+    public   List<ProductRequestDTO> filterByCategoryFreeshipping( List<ProductRequestDTO> list, String category, boolean freeShipping ){
+        List<ProductRequestDTO> lista = null;
+        try {
+            List<ProductRequestDTO> listFilter = list.stream()
+                    .filter(q -> q.getCategory().equals(category) && q.isFreeShipping()).collect(Collectors.toList());
+            return listFilter;
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+      }
+        return lista;
+    }
 
+
+    public   List<ProductRequestDTO> filterByPrestigeFreeshipping( List<ProductRequestDTO> list, String prestige, boolean freeShipping ){
+        List<ProductRequestDTO> lista = null;
+        try {
+            List<ProductRequestDTO> listFilter = list.stream()
+                    .filter(q -> q.getPrestige().equals(prestige) && q.isFreeShipping()).collect(Collectors.toList());
+            return listFilter;
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return lista;
+    }
 
 
     //TODO criar uma classe ParamOrderAlphabetic para aceitar o alfabético crescente => 0, alfabético decrescente => 1

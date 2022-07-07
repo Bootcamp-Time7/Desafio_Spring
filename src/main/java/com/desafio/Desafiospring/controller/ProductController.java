@@ -19,13 +19,13 @@ public class ProductController {
     private Optional<Boolean> freeShipping;
     private Optional<String> prestige;
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<ProductRequestDTO>> getProductAll(){
         List<ProductRequestDTO> list =  service.getProductAll();
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("")
+    @GetMapping("/search")
     public ResponseEntity<List<ProductRequestDTO>> getAllByTwoFilters(
             @RequestParam("category") Optional<String> category,
             @RequestParam("freeShipping") Optional<Boolean> freeShipping,
