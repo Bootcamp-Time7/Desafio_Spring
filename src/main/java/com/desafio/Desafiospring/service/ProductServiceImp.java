@@ -5,6 +5,8 @@ import com.desafio.Desafiospring.dto.ProductRequestDTO;
 import com.desafio.Desafiospring.dto.ProductResponseDTO;
 import com.desafio.Desafiospring.model.Product;
 import com.desafio.Desafiospring.repository.ProductRepo;
+import com.desafio.exception.NotFoundExceptions;
+import com.desafio.handler.HandlerExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +19,14 @@ public class ProductServiceImp implements IproductService{
 
     @Autowired
     ProductRepo repo;
+//
+//    /**
+//     *
+//     * author: Amanda, Gabryel, Marina, Mônica, Nicole, Yago
+//     * Permite acesso ao método getProductAll do repositório, cria uma lista de produtos do tipo ProductRequestDTO e retorna essa lista
+//     *
+//     */
 
-    /**
-     *
-     * @return
-     */
     @Override
     public List<ProductRequestDTO> getProductAll() {
         List<Product> listProducts = repo.getProductAll();
@@ -30,10 +35,15 @@ public class ProductServiceImp implements IproductService{
         return listProductsDTO;
     }
 
-    /**
-     *
-     * @param products
-     */
+
+//    /**
+//     *
+//     * author: Yago
+//     * Permite acesso ao método saveProducts do repositório
+//     *
+//     */
+
+
     @Override
     public void saveProductsVoid(List<Product> products) {
         repo.saveProductsVoid(products);
@@ -50,13 +60,34 @@ public class ProductServiceImp implements IproductService{
         return null;
     }
 
+//    /**
+//     *
+//     * author: Mônica
+//     * param: String category
+//     * Permite acesso ao método getProductAll do repositório. Cria uma nova lista do tipo ProductRequestDTO. É feito um filtro por categoria de produtos,
+//     * inseridos os objetos to tipo ProductRequestDTO e criada a lista final.
+//     * return <ProductRequestDTO> listProductsDtoCategory
+//     *
+//     */
+
     @Override
     public List<ProductRequestDTO> getAllByCategory(String category) {
-        return null;
+        if(category.equals("false")){
+            throw new NotFoundExceptions("Categoria não encontrada");
+        }else {
+            List<Product> listProducts = repo.getProductAll();
+            List<ProductRequestDTO> listProductsDtoCategory = listProducts.stream()
+                    .filter(productDto->productDto.getCategory().equalsIgnoreCase(category))
+                    .map(ProductRequestDTO::new)
+                    .collect(Collectors.toList());
+            return listProductsDtoCategory;
+        }
+
+
     }
 
     /**
-     *
+     *author:Amanda
      * @param category
      * @param freeShipping
      * @param prestige
@@ -83,7 +114,7 @@ public class ProductServiceImp implements IproductService{
     }
 
     /**
-     *
+     *author:Amanda
      * @param list
      * @param category
      * @param freeShipping
@@ -104,7 +135,7 @@ public class ProductServiceImp implements IproductService{
     }
 
     /**
-     *
+     *author:Amanda
      * @param list
      * @param prestige
      * @param freeShipping
@@ -128,9 +159,43 @@ public class ProductServiceImp implements IproductService{
 
 
     //TODO criar uma classe ParamOrderAlphabetic para aceitar o alfabético crescente => 0, alfabético decrescente => 1
+
+    /**
+     * @author: Nicole Calderari
+     * Esse método faz o filtro dos produtos baseado nos parâmetros que chegam pela requisição do usuário e ordena alfabeticamente,
+     * Transforma a lista de produtos em Steam e aplica as HOF`S de filtro para pegar os produtos de acordo com os parâmetros passados
+     * depois ordena alfabeticamente de A-Z ou Z-A, dependendo do número que foi passado pelo param Order.
+     * Retorna os produtos filtrados e convertidos para DTO.
+     */
     @Override
     public List<ProductRequestDTO> getAllByAlphabetic(String category, boolean freeShipping, int order) {
-        return null;
+        List<Product> listProducts = repo.getProductAll(); // colocar método que a Mônica ainda vai fazer
+        List<ProductRequestDTO> listProductsDTO = null;
+
+        if(order == 0 ) {
+
+           listProductsDTO = listProducts.stream()
+           .filter((product) -> product.getCategory().equalsIgnoreCase(category)) // ai deleta essa linha.
+           .filter((product) -> product.isFreeShipping())
+           .sorted((product1, product2) -> product1.getName().compareTo(product2.getName())) // ordem alfabética normal
+           .map(ProductRequestDTO::new)
+           .collect(Collectors.toList());
+         
+
+        } else if (order == 1) {
+            listProductsDTO = listProducts.stream()
+            .filter((product) -> product.getCategory().equals(category)) 
+            .filter((product) -> product.isFreeShipping())
+            .sorted((product1, product2) -> product2.getName().compareTo(product1.getName())) // de trás pra frente
+            .map(ProductRequestDTO::new)
+            .collect(Collectors.toList());
+       
+        }
+
+
+       return listProductsDTO;
+   
+        
     }
 
 

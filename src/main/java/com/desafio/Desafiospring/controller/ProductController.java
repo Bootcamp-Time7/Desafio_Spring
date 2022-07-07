@@ -6,6 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +26,17 @@ public class ProductController {
     private Optional<String> prestige;
 
 
+
+//    /**
+//     *
+//     * authors: Amanda, Gabryel, Marina, Mônica, Nicole, Yago
+//     * route: articles
+//     * Devolve para o viewer a lista de todos os produtos, a partir do chamamento do método construído na camada service
+//     * return: Lista do tipo ProductRequestDTO
+//     */
+
     @GetMapping("")
+
     public ResponseEntity<List<ProductRequestDTO>> getProductAll(){
         List<ProductRequestDTO> list =  service.getProductAll();
         return ResponseEntity.ok(list);
@@ -33,6 +49,20 @@ public class ProductController {
      * @param prestige
      * @return
      */
+    /**
+     * @author Nicole Calderari
+     * Esta é uma rota get, nela foi colocado um fragmento a mais na url "/alphabet" porque estava dando conflito
+     * com a rota genérica de todos os produtos.
+     * Esse método requisita os parâmetros da url e os passa para a função getAllByAlphabetic que faz a ordenação.
+     * Retorna status 200 e a lista dos produtos filtrados de acordo com os parâmetros.
+     */
+    @GetMapping("/articles/alphabet")
+    public ResponseEntity<List<ProductRequestDTO>> getAllByAlphabetic(@RequestParam String category, @RequestParam  boolean freeShipping, @RequestParam  int order) {
+       List<ProductRequestDTO> list = service.getAllByAlphabetic(category, freeShipping, order);
+       return ResponseEntity.ok(list);
+    }
+
+
     @GetMapping("/search")
     public ResponseEntity<List<ProductRequestDTO>> getAllByTwoFilters(
             @RequestParam("category") Optional<String> category,
@@ -54,5 +84,25 @@ public class ProductController {
         service.saveProductsVoid(products);
 
     }
+
+//
+//    /**
+//     *
+//     * authors: Mônica
+//     * route: articles/category
+//     * Devolve para o viewer a lista dos produtos filtrada por categoria, a partir do chamamento do método construído na camada service.
+//     * O usuário poderá selecionar a categoria de produtos desejada e visualizará uma lista de produtos para aquela categoria.
+//     * return: Lista filtrada por categoria, do tipo ProductRequestDTO
+//     */
+
+    @GetMapping("/articles/category")
+    public ResponseEntity<List<ProductRequestDTO>> getAllByCategory (@RequestParam String category) {
+        List<ProductRequestDTO> listProductByCategory = service.getAllByCategory(category);
+        return ResponseEntity.ok(listProductByCategory);
+
+    }
+
+
+
 
 }
