@@ -26,6 +26,12 @@ public class ProductServiceImp implements IproductService{
     }
 
     @Override
+    public void saveProductsVoid(List<Product> products) {
+        repo.saveProductsVoid(products);
+
+    }
+
+    @Override
     public List<ProductResponseDTO> saveProducts(List<Product> products) {
         return null;
     }
