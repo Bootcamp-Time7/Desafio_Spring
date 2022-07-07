@@ -6,7 +6,7 @@
   "price" : 0.0,
   "quantity" : 0,
   "freeShipping" : false,
-  "prestige" : null
+  "prestige" : "*"
 }, {
   "productId" : 1,
   "name" : "Serra de Bancada",

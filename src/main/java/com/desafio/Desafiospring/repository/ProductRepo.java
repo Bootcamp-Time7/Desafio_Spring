@@ -1,6 +1,4 @@
 package com.desafio.Desafiospring.repository;
-
-//import com.desafio.Desafiospring.model.Product;
 import com.desafio.Desafiospring.model.Product;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
