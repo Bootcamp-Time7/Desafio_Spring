@@ -20,15 +20,12 @@ public class ProductServiceImp implements IproductService{
     @Override
     public List<ProductRequestDTO> getProductAll() {
         List<Product> listProducts = repo.getProductAll();
-        List<ProductRequestDTO> listProductsDTO = listProducts.stream()
-                .map(ProductRequestDTO::new).collect(Collectors.toList());
-        return listProductsDTO;
+        return ProductRequestDTO.convertForListProdReqDTO(listProducts);
     }
 
     @Override
     public void saveProductsVoid(List<Product> products) {
         repo.saveProductsVoid(products);
-
     }
 
     @Override

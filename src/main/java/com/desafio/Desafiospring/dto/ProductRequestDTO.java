@@ -3,6 +3,9 @@ package com.desafio.Desafiospring.dto;
 import com.desafio.Desafiospring.model.Product;
 import lombok.Data;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Data
 public class ProductRequestDTO {
     private long productId;
@@ -24,6 +27,10 @@ public class ProductRequestDTO {
         this.freeShipping = product.isFreeShipping();
         this.prestige = product.getPrestige();
     }
-
+    public static List<ProductRequestDTO> convertForListProdReqDTO(List<Product> listProducts) {
+        return listProducts.stream()
+            .map(ProductRequestDTO::new)
+                .collect(Collectors.toList());
+    }
 
 }
