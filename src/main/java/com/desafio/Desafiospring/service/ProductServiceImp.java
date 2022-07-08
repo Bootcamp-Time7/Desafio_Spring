@@ -19,13 +19,13 @@ public class ProductServiceImp implements IproductService{
 
     @Autowired
     ProductRepo repo;
-//
-//    /**
-//     *
-//     * author: Amanda, Gabryel, Marina, Mônica, Nicole, Yago
-//     * Permite acesso ao método getProductAll do repositório, cria uma lista de produtos do tipo ProductRequestDTO e retorna essa lista
-//     *
-//     */
+
+    /**
+     *
+     * author: Amanda, Gabryel, Marina, Mônica, Nicole, Yago
+     * Permite acesso ao método getProductAll do repositório, cria uma lista de produtos do tipo ProductRequestDTO e retorna essa lista
+     *
+     */
 
     @Override
     public List<ProductRequestDTO> getProductAll() {
@@ -36,12 +36,12 @@ public class ProductServiceImp implements IproductService{
     }
 
 
-//    /**
-//     *
-//     * author: Yago
-//     * Permite acesso ao método saveProducts do repositório
-//     *
-//     */
+    /**
+     *
+     * author: Yago
+     * Permite acesso ao método saveProducts do repositório
+     *
+     */
 
 
     @Override
@@ -60,15 +60,14 @@ public class ProductServiceImp implements IproductService{
         return null;
     }
 
-//    /**
-//     *
-//     * author: Mônica
-//     * param: String category
-//     * Permite acesso ao método getProductAll do repositório. Cria uma nova lista do tipo ProductRequestDTO. É feito um filtro por categoria de produtos,
-//     * inseridos os objetos to tipo ProductRequestDTO e criada a lista final.
-//     * return <ProductRequestDTO> listProductsDtoCategory
-//     *
-//     */
+    /**
+     *
+     * author: Mônica
+     * param: String category
+     * Permite acesso ao método getProductAll do repositório. Cria uma nova lista do tipo ProductRequestDTO. É feito um filtro por categoria de produtos,
+     * inseridos os objetos to tipo ProductRequestDTO e criada a lista final.
+     *
+     */
 
     @Override
     public List<ProductRequestDTO> getAllByCategory(String category) {
@@ -158,7 +157,6 @@ public class ProductServiceImp implements IproductService{
     }
 
 
-    //TODO criar uma classe ParamOrderAlphabetic para aceitar o alfabético crescente => 0, alfabético decrescente => 1
 
     /**
      * author: Nicole Calderari
@@ -199,13 +197,11 @@ public class ProductServiceImp implements IproductService{
     }
 
 
-    //TODO criar uma variavel final na interface para aceitar o preço crescente => 3, preço decrescente => 2, criar uma exceçao para receber somente os valores esperados
     @Override
     public List<ProductRequestDTO> getAllByHigherPrice(String category, boolean freeShipping, int order) {
         return null;
     }
 
-    //TODO criar uma variavel final na interface para aceitar o preço crescente => 3, preço decrescente => 2, criar uma exceçao para receber somente os valores esperados
     @Override
     public List<ProductRequestDTO> getAllByLowerPrice(String category, boolean freeShipping, int order) {
         return null;
