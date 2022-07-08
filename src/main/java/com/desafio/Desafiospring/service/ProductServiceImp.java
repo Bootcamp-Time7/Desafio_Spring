@@ -56,7 +56,6 @@ public class ProductServiceImp implements IproductService{
     }
 
 
-
     @Override
     public List<CartRequestDTO> createShoppingCart(List<ProductResponseDTO> products) {
       try {
@@ -191,7 +190,6 @@ public class ProductServiceImp implements IproductService{
                         .sorted((product1, product2) -> product2.getName().compareTo(product1.getName()))
                         .map(ProductRequestDTO::new)
                         .collect(Collectors.toList());
-
             }
             return listProductsDTO;
         }catch (Exception e){
@@ -199,28 +197,57 @@ public class ProductServiceImp implements IproductService{
         }
     }
 
+    /**
+     * author: Gabryel Wapnyk
+     * Esse método faz o filtro dos produtos baseado nos parâmetros que chegam pela requisição do usuário e ordena decrescentemente,
+     * Transforma a lista de produtos em Steam e aplica as HOF`S de filtro para pegar os produtos de acordo com os parâmetros passados
+     * depois ordena decrescentemente, de acordo com o número que foi passado pelo param Order que tem que ser 2.
+     * Retorna os produtos filtrados e convertidos para DTO.
+     */
 
-    //TODO criar uma variavel final na interface para aceitar o preço crescente => 3, preço decrescente => 2, criar uma exceçao para receber somente os valores esperados
     @Override
     public List<ProductRequestDTO> getAllByHigherPrice(String category, boolean freeShipping, int order) {
-       try {
-           return null;
-       }catch (Exception e){
-           throw new ErrorCallListException();
-       }
+
+        List<Product> listProducts = repo.getProductAll();
+        List<ProductRequestDTO> listProductsDTO = null;
+
+        if (order == 2){
+            listProductsDTO = listProducts.stream()
+            .filter((product) -> product.getCategory().equalsIgnoreCase(category))
+                    .filter((product) -> product.isFreeShipping())
+                    .sorted((product1, product2) -> Double.valueOf(product2.getPrice()).compareTo(Double.valueOf(product1.getPrice()))) // ordem de preco
+                    .map(ProductRequestDTO::new)
+                    .collect(Collectors.toList());
+        }
+
+        return listProductsDTO;
+
     }
 
-    //TODO criar uma variavel final na interface para aceitar o preço crescente => 3, preço decrescente => 2, criar uma exceçao para receber somente os valores esperados
+    /**
+     * author: Gabryel Wapnyk
+     * Esse método faz o filtro dos produtos baseado nos parâmetros que chegam pela requisição do usuário e ordena crescentemente,
+     * Transforma a lista de produtos em Steam e aplica as HOF`S de filtro para pegar os produtos de acordo com os parâmetros passados
+     * depois ordena crescentemente, de acordo com o número que foi passado pelo param Order que tem que ser 2.
+     * Retorna os produtos filtrados e convertidos para DTO.
+     */
+
     @Override
     public List<ProductRequestDTO> getAllByLowerPrice(String category, boolean freeShipping, int order) {
-       try {
-           return null;
-       }catch (Exception e){
-           throw new ErrorCallListException();
-       }
+
+    List<Product> listProducts = repo.getProductAll();
+    List<ProductRequestDTO> listProductsDTO = null;
+
+        if (order == 3){
+        listProductsDTO = listProducts.stream()
+                .filter((product) -> product.getCategory().equalsIgnoreCase(category))
+                .filter((product) -> product.isFreeShipping())
+                .sorted((product1, product2) -> Double.valueOf(product1.getPrice()).compareTo(Double.valueOf(product2.getPrice()))) // ordem de preco
+                .map(ProductRequestDTO::new)
+                .collect(Collectors.toList());
     }
+        return listProductsDTO;
 
-
-
+    }
 
 }

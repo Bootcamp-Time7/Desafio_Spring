@@ -127,7 +127,28 @@ public class ProductController {
         }
     }
 
+    /**
+     * author Gabryel Wapnyk
+     * @param category
+     * @param freeShipping
+     * @param order
+     */
+    @GetMapping("/order/decrescent")
+    public ResponseEntity<List<ProductRequestDTO>> getAllByHigherPrice (@RequestParam String category, @RequestParam boolean freeShipping, @RequestParam int order) {
+        List<ProductRequestDTO> listProductAllByHigherPrice = service.getAllByHigherPrice(category, freeShipping, order);
+        return ResponseEntity.ok(listProductAllByHigherPrice);
+    }
 
-
+    /**
+     * author Gabryel Wapnyk
+     * @param category
+     * @param freeShipping
+     * @param order
+     */
+    @GetMapping("/order/crescent")
+    public ResponseEntity<List<ProductRequestDTO>> getAllByLowerPrice (@RequestParam String category, @RequestParam boolean freeShipping, @RequestParam int order) {
+        List<ProductRequestDTO> listProductAllLowerPrice = service.getAllByLowerPrice(category, freeShipping, order);
+        return ResponseEntity.ok(listProductAllLowerPrice);
+    }
 
 }
