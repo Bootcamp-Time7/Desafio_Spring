@@ -51,8 +51,7 @@ public class ProductController {
      */
     /**
      * @author Nicole Calderari
-     * Esta é uma rota get, nela foi colocado um fragmento a mais na url "/alphabet" porque estava dando conflito
-     * com a rota genérica de todos os produtos.
+     * Esta é uma rota get.
      * Esse método requisita os parâmetros da url e os passa para a função getAllByAlphabetic que faz a ordenação.
      * Retorna status 200 e a lista dos produtos filtrados de acordo com os parâmetros.
      */
@@ -102,12 +101,40 @@ public class ProductController {
 
     }
 
+    /**
+     * 
+     * @param category
+     * @param freeShipping
+     * @param order
+     */
+
+    /**
+     * @author Gabryel Wapnyk
+     * Esta é uma rota get 
+     * Esse método requisita os parâmetros da url e os passa para a função getAllByHigherPrice que faz a ordenação.
+     * Retorna status 200 e a lista dos produtos filtrados de forma decrescente.
+     */
     
     @GetMapping("/order/decrescent")
     public ResponseEntity<List<ProductRequestDTO>> getAllByHigherPrice (@RequestParam String category, @RequestParam boolean freeShipping, @RequestParam int order) {
         List<ProductRequestDTO> listProductAllByHigherPrice = service.getAllByHigherPrice(category, freeShipping, order);
         return ResponseEntity.ok(listProductAllByHigherPrice);
     }
+
+    /**
+     * 
+     * @param category
+     * @param freeShipping
+     * @param order
+     */
+
+    /**
+     * @author Gabryel Wapnyk
+     * Esta é uma rota get 
+     * Esse método requisita os parâmetros da url e os passa para a função getAllByLowerPrice que faz a ordenação.
+     * Retorna status 200 e a lista dos produtos filtrados de forma crescente.
+     */
+
 
     @GetMapping("/order/crescent")
     public ResponseEntity<List<ProductRequestDTO>> getAllByLowerPrice (@RequestParam String category, @RequestParam boolean freeShipping, @RequestParam int order) {

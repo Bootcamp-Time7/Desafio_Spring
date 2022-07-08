@@ -198,8 +198,16 @@ public class ProductServiceImp implements IproductService{
         
     }
 
-
     //TODO criar uma variavel final na interface para aceitar o preço crescente => 3, preço decrescente => 2, criar uma exceçao para receber somente os valores esperados
+    
+    /**
+     * author: Gabryel Wapnyk
+     * Esse método faz o filtro dos produtos baseado nos parâmetros que chegam pela requisição do usuário e ordena decrescentemente,
+     * Transforma a lista de produtos em Steam e aplica as HOF`S de filtro para pegar os produtos de acordo com os parâmetros passados
+     * depois ordena decrescentemente, de acordo com o número que foi passado pelo param Order que tem que ser 2.
+     * Retorna os produtos filtrados e convertidos para DTO.
+     */
+
     @Override
     public List<ProductRequestDTO> getAllByHigherPrice(String category, boolean freeShipping, int order) {
         List<Product> listProducts = repo.getProductAll();
@@ -219,6 +227,15 @@ public class ProductServiceImp implements IproductService{
     }
 
     //TODO criar uma variavel final na interface para aceitar o preço crescente => 3, preço decrescente => 2, criar uma exceçao para receber somente os valores esperados
+
+    /**
+     * author: Gabryel Wapnyk
+     * Esse método faz o filtro dos produtos baseado nos parâmetros que chegam pela requisição do usuário e ordena crescentemente,
+     * Transforma a lista de produtos em Steam e aplica as HOF`S de filtro para pegar os produtos de acordo com os parâmetros passados
+     * depois ordena crescentemente, de acordo com o número que foi passado pelo param Order que tem que ser 2.
+     * Retorna os produtos filtrados e convertidos para DTO.
+     */
+
     @Override
     public List<ProductRequestDTO> getAllByLowerPrice(String category, boolean freeShipping, int order) {
 
