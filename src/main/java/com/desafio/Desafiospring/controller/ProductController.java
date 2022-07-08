@@ -4,6 +4,8 @@ import com.desafio.Desafiospring.dto.ProductRequestDTO;
 import com.desafio.Desafiospring.service.IproductService;
 import com.desafio.exception.CreateException;
 import com.desafio.exception.ErrorCallListException;
+import com.desafio.exception.ExcessiveFilter;
+import com.desafio.exception.NotFoundParamFreeshipping;
 import com.desafio.handler.HandlerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +47,7 @@ public class ProductController {
             List<ProductRequestDTO> list =  service.getProductAll();
             return ResponseEntity.ok(list);
         }catch (Exception e){
-            throw new ErrorCallListException();
+            throw new ErrorCallListException(e.getMessage());
         }
 
     }
@@ -64,7 +66,7 @@ public class ProductController {
             List<ProductRequestDTO> list = service.getAllByAlphabetic(category, freeShipping, order);
             return ResponseEntity.ok(list);
         }catch (Exception e){
-            throw new ErrorCallListException();
+            throw new ErrorCallListException(e.getMessage());
         }
 
     }
@@ -77,19 +79,14 @@ public class ProductController {
      * @return
      */
     @GetMapping("/search")
+    @ExceptionHandler({ ExcessiveFilter.class, NotFoundParamFreeshipping.class, ErrorCallListException.class})
     public ResponseEntity<List<ProductRequestDTO>> getAllByTwoFilters(
             @RequestParam("category") Optional<String> category,
             @RequestParam("freeShipping") boolean freeShipping,
             @RequestParam("prestige") Optional<String> prestige) {
-        try {
             this.category = category;
             this.prestige = prestige;
-
             return ResponseEntity.ok().body(service.getAllByFilters(category, freeShipping, prestige));
-        }catch (Exception e ){
-            throw new ErrorCallListException();
-        }
-
     }
 
     /**
@@ -97,14 +94,9 @@ public class ProductController {
      * @param products
      */
     @PostMapping("/insert-articles-request")
+    @ExceptionHandler({ CreateException.class})
     public void saveProductsVoid(@RequestBody List<Product> products){
-        try {
             service.saveProductsVoid(products);
-
-        }catch (Exception e){
-            throw new CreateException();
-        }
-
     }
 
 
@@ -123,7 +115,7 @@ public class ProductController {
             List<ProductRequestDTO> listProductByCategory = service.getAllByCategory(category);
             return ResponseEntity.ok(listProductByCategory);
         }catch (Exception e){
-            throw new ErrorCallListException();
+            throw new ErrorCallListException(e.getMessage());
         }
     }
 

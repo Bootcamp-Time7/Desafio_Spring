@@ -31,7 +31,7 @@ public class ProductRepo {
              ObjectMapper mapperJson = new ObjectMapper();
              list = Arrays.asList(mapperJson.readValue( new File(fileJson), Product[].class));
          }catch (Exception e){
-            throw new ErrorCallListException();
+            throw new ErrorCallListException(e.getMessage());
          }
          return list;
      }
@@ -53,7 +53,7 @@ public class ProductRepo {
             writerJson.writeValue(new File(fileJson),copy);
         }
         catch (Exception e){
-            throw new CreateException();
+            throw new CreateException(e.getMessage());
         }
     }
 
