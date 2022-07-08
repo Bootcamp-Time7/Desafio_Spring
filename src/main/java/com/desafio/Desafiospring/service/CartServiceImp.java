@@ -8,7 +8,7 @@ import com.desafio.Desafiospring.model.Purchase;
 import com.desafio.Desafiospring.repository.CartRepo;
 import com.desafio.Desafiospring.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.util.TestPropertyValues;
+
 
 import org.springframework.stereotype.Service;
 
@@ -34,20 +34,32 @@ public class CartServiceImp implements ICartService{
         cartPurchase.stream()
                 .forEach(purchase -> {
                     productList.forEach(product -> {
-                        if(   product.getProductId() == purchase.getProducPurchasetId()){
+                        if(   product.getProductId() == purchase.getProductPurchaseId()){
+                            product.setQuantity(purchase.getQuantity());
+
                             purchaseList.add(product);
                         }
+
                     });
                 });
+
                 Cart cartCarrinho= Cart.builder()
                                .id(123)
                                .articles(purchaseList)
-                               .total(2365)
+                               .total(2536)
                                .build();
 
           repoCart.saveCartProducts(cartCarrinho);
 
           return null;
 
+    }
+
+    public double calcularTotal(List<Product> produtos){
+        double total=0;
+        for(Product produto :produtos){
+            total+=produto.getPrice()*produto.getQuantity();
+        }
+       return total;
     }
 }

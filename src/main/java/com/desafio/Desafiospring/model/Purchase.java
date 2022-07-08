@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 
 public class Purchase {
-    private long producPurchasetId;
+    private long productPurchaseId;
     private int quantity;
 }

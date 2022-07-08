@@ -19,7 +19,7 @@ public class CartController {
     ICartService cartService;
 
     @PostMapping("/purchase-request")
-    public ResponseEntity <CartRequestDTO> cartRequestShopping (List<Purchase>cartPurchase){
+    public ResponseEntity <CartRequestDTO> cartRequestShopping (@RequestBody List<Purchase>cartPurchase){
 
         cartService.createShoppingCart( cartPurchase);
         return null;

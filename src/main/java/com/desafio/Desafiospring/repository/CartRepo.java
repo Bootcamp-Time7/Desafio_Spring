@@ -2,6 +2,7 @@ package com.desafio.Desafiospring.repository;
 
 import com.desafio.Desafiospring.model.Cart;
 import com.desafio.Desafiospring.model.Product;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -39,11 +40,11 @@ public class CartRepo {
         List<Cart> cartTempList = null;
 
         try{
-            cartTempList = Arrays.asList(mapperCartJson.readValue(new File(fileTicketJson),Cart[].class));
-            List<Cart> copy = new ArrayList<>(cartTempList);
+            cartTempList = mapperCartJson.readValue(new File(fileTicketJson), new TypeReference<List<Cart>>(){});
+            //List<Cart> copy = new ArrayList<>(cartTempList);
 
-            copy.add(productsCart);
-            writerJson.writeValue(new File(fileTicketJson),copy);
+            cartTempList.add(productsCart);
+            writerJson.writeValue(new File(fileTicketJson),cartTempList);
 
         }
         catch (Exception e){
