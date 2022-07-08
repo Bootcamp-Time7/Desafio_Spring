@@ -1,7 +1,11 @@
 package com.desafio.Desafiospring.dto;
 
 import com.desafio.Desafiospring.model.Product;
+import com.desafio.Desafiospring.repository.ProductRepo;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 @Data
 public class ProductRequestDTO  {

@@ -15,6 +15,8 @@ public interface IproductService {
     //TODO Criar DTO para response e request do carrinho
 
     List<ProductRequestDTO> getProductAll();
+    List<Product> getListForId(List<Product> productList);
+
     List<ProductRequestDTO> getAllByCategory(String category);
 
     //TODO Criar uma classe generica para o filtro de dois produtos, criar uma exceçao para nao receber quantidade

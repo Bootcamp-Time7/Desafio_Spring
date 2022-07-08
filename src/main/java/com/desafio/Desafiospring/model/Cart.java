@@ -1,16 +1,16 @@
 package com.desafio.Desafiospring.model;
 
-import com.desafio.Desafiospring.dto.ProductRequestDTO;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
-
-@Data
+@Getter
+@Setter
 @Builder
 public class Cart {
-    private int id;
+
+    private long id;
     private List<Product> articles;
-    private double total;
+    private double total;;
+
 }

@@ -35,6 +35,11 @@ public class ProductServiceImp implements IproductService{
         return listProductsDTO;
     }
 
+    @Override
+    public List<Product> getListForId(List<Product> productList) {
+       return repo.getListForId(productList);
+    }
+
 
 //    /**
 //     *
@@ -47,7 +52,6 @@ public class ProductServiceImp implements IproductService{
     @Override
     public void saveProductsVoid(List<Product> products) {
         repo.saveProductsVoid(products);
-
     }
 
     @Override
@@ -89,6 +93,8 @@ public class ProductServiceImp implements IproductService{
      * @param prestige
      * @return
      */
+
+
     @Override
     public List<ProductRequestDTO> getAllByFilters(Optional<String> category, Optional<Boolean> freeShipping, Optional<String> prestige) {
         List<ProductRequestDTO> lista = null;

@@ -1,5 +1,6 @@
 package com.desafio.Desafiospring.repository;
 
+import com.desafio.Desafiospring.dto.ProductRequestDTO;
 import com.desafio.Desafiospring.model.Product;
 
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
@@ -11,6 +12,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class ProductRepo {
@@ -75,4 +77,30 @@ public class ProductRepo {
         }
     }
 
+    public List<Product> getListForId(List<Product> productList) {
+        List<Product> listAllProducts = getProductAll();
+        return productList.stream().map(p -> getProductById(p.getProductId())).collect(Collectors.toList());
+    }
+
+    public Product getProductById(long id) {
+        List<Product> lista = null;
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            lista = Arrays.asList
+                    (mapper.readValue(new File(fileJson), Product[].class));
+            for(Product p: lista){
+                if(p.getProductId() == id){
+                    return p;
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println("Erro");
+        }
+        return null;
+//        throw new NotFoundException("Produto não localizado");
+    }
+
+    public long contador(){
+        return getProductAll().size();
+    }
 }
