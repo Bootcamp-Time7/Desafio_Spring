@@ -209,7 +209,7 @@ public class ProductServiceImp implements IproductService{
             listProductsDTO = listProducts.stream()
             .filter((product) -> product.getCategory().equalsIgnoreCase(category))
                     .filter((product) -> product.isFreeShipping())
-                    .sorted() // ordem de preco
+                    .sorted((product1, product2) -> Double.valueOf(product2.getPrice()).compareTo(Double.valueOf(product1.getPrice()))) // ordem de preco
                     .map(ProductRequestDTO::new)
                     .collect(Collectors.toList());
         }
@@ -222,19 +222,19 @@ public class ProductServiceImp implements IproductService{
     @Override
     public List<ProductRequestDTO> getAllByLowerPrice(String category, boolean freeShipping, int order) {
 
-    // List<Product> listProducts = repo.getProductAll();
-    // List<ProductRequestDTO> listProductsDTO = null;
+    List<Product> listProducts = repo.getProductAll();
+    List<ProductRequestDTO> listProductsDTO = null;
 
-    //     if (order == 3){
-    //     listProductsDTO = listProducts.stream()
-    //             .filter((product) -> product.getCategory().equalsIgnoreCase(category))
-    //             .filter((product) -> product.isFreeShipping())
-    //             .sorted((product1, product2) -> product2.getPrice().compareTo(product1.getPrice())) // ordem de preco
-    //             .map(ProductRequestDTO::new)
-    //             .collect(Collectors.toList());
-    // }
+        if (order == 3){
+        listProductsDTO = listProducts.stream()
+                .filter((product) -> product.getCategory().equalsIgnoreCase(category))
+                .filter((product) -> product.isFreeShipping())
+                .sorted((product1, product2) -> Double.valueOf(product1.getPrice()).compareTo(Double.valueOf(product2.getPrice()))) // ordem de preco
+                .map(ProductRequestDTO::new)
+                .collect(Collectors.toList());
+    }
 
-        return null;
+        return listProductsDTO;
 
 
 
