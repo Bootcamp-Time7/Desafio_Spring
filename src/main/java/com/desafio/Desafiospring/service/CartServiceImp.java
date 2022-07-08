@@ -39,10 +39,12 @@ public class CartServiceImp implements ICartService{
     private Product findById(Purchase purchase) {
         List<Product> productList = repoProduct.getProductAll();
         for (Product p : productList) {
-            if (p.getProductId() == purchase.getId() && p.getQuantity() >= purchase.getQuantity()) {
-                return p;
-            } else {
-                System.out.println("Produto indisponível");
+            if (p.getProductId() == purchase.getId()) {
+                if (p.getQuantity() >= purchase.getQuantity()) {
+                    return p;
+                } else {
+                    System.out.println("Produto indisponível");
+                }
             }
         }
         // TODO Throw new exception
@@ -53,6 +55,7 @@ public class CartServiceImp implements ICartService{
         List<Product> productList = new ArrayList<>();
         for (Purchase purchase: purchaseList){
             Product p = findById(purchase);
+            p.setQuantity(purchase.getQuantity());
             productList.add(p);
         }
         return productList;

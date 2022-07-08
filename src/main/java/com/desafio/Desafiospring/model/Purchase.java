@@ -12,6 +12,6 @@ import lombok.Setter;
 public class Purchase {
 
     private long id;
-    private double quantity;
+    private int quantity;
 
 }
