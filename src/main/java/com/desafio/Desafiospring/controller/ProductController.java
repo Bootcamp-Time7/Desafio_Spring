@@ -51,12 +51,11 @@ public class ProductController {
      */
     /**
      * @author Nicole Calderari
-     * Esta é uma rota get, nela foi colocado um fragmento a mais na url "/alphabet" porque estava dando conflito
-     * com a rota genérica de todos os produtos.
+     * Esta é uma rota get.
      * Esse método requisita os parâmetros da url e os passa para a função getAllByAlphabetic que faz a ordenação.
      * Retorna status 200 e a lista dos produtos filtrados de acordo com os parâmetros.
      */
-    @GetMapping("/articles/alphabet")
+    @GetMapping("/alphabet")
     public ResponseEntity<List<ProductRequestDTO>> getAllByAlphabetic(@RequestParam String category, @RequestParam  boolean freeShipping, @RequestParam  int order) {
        List<ProductRequestDTO> list = service.getAllByAlphabetic(category, freeShipping, order);
        return ResponseEntity.ok(list);
@@ -79,30 +78,68 @@ public class ProductController {
      *
      * @param products
      */
-    @PostMapping("/add")
+    @PostMapping("/insert-articles-request")
     public void saveProductsVoid(@RequestBody List<Product> products){
         service.saveProductsVoid(products);
 
     }
 
-//
-//    /**
-//     *
-//     * authors: Mônica
-//     * route: articles/category
-//     * Devolve para o viewer a lista dos produtos filtrada por categoria, a partir do chamamento do método construído na camada service.
-//     * O usuário poderá selecionar a categoria de produtos desejada e visualizará uma lista de produtos para aquela categoria.
-//     * return: Lista filtrada por categoria, do tipo ProductRequestDTO
-//     */
 
-    @GetMapping("/articles/category")
+    /**
+     *
+     * authors: Mônica
+     * route: articles/category
+     * Devolve para o viewer a lista dos produtos filtrada por categoria, a partir do chamamento do método construído na camada service.
+     * O usuário poderá selecionar a categoria de produtos desejada e visualizará uma lista de produtos para aquela categoria.
+     * return: Lista filtrada por categoria, do tipo ProductRequestDTO
+     */
+
+    @GetMapping("/category")
     public ResponseEntity<List<ProductRequestDTO>> getAllByCategory (@RequestParam String category) {
         List<ProductRequestDTO> listProductByCategory = service.getAllByCategory(category);
         return ResponseEntity.ok(listProductByCategory);
 
     }
 
+    /**
+     * 
+     * @param category
+     * @param freeShipping
+     * @param order
+     */
+
+    /**
+     * @author Gabryel Wapnyk
+     * Esta é uma rota get 
+     * Esse método requisita os parâmetros da url e os passa para a função getAllByHigherPrice que faz a ordenação.
+     * Retorna status 200 e a lista dos produtos filtrados de forma decrescente.
+     */
+    
+    @GetMapping("/order/decrescent")
+    public ResponseEntity<List<ProductRequestDTO>> getAllByHigherPrice (@RequestParam String category, @RequestParam boolean freeShipping, @RequestParam int order) {
+        List<ProductRequestDTO> listProductAllByHigherPrice = service.getAllByHigherPrice(category, freeShipping, order);
+        return ResponseEntity.ok(listProductAllByHigherPrice);
+    }
+
+    /**
+     * 
+     * @param category
+     * @param freeShipping
+     * @param order
+     */
+
+    /**
+     * @author Gabryel Wapnyk
+     * Esta é uma rota get 
+     * Esse método requisita os parâmetros da url e os passa para a função getAllByLowerPrice que faz a ordenação.
+     * Retorna status 200 e a lista dos produtos filtrados de forma crescente.
+     */
 
 
-
+    @GetMapping("/order/crescent")
+    public ResponseEntity<List<ProductRequestDTO>> getAllByLowerPrice (@RequestParam String category, @RequestParam boolean freeShipping, @RequestParam int order) {
+        List<ProductRequestDTO> listProductAllLowerPrice = service.getAllByLowerPrice(category, freeShipping, order);
+        return ResponseEntity.ok(listProductAllLowerPrice);
+    }
+    
 }
