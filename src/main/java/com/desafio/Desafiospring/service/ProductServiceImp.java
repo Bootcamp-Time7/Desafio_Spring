@@ -202,16 +202,42 @@ public class ProductServiceImp implements IproductService{
     //TODO criar uma variavel final na interface para aceitar o preço crescente => 3, preço decrescente => 2, criar uma exceçao para receber somente os valores esperados
     @Override
     public List<ProductRequestDTO> getAllByHigherPrice(String category, boolean freeShipping, int order) {
-        return null;
+        List<Product> listProducts = repo.getProductAll();
+        List<ProductRequestDTO> listProductsDTO = null;
+
+        if (order == 2){
+            listProductsDTO = listProducts.stream()
+            .filter((product) -> product.getCategory().equalsIgnoreCase(category))
+                    .filter((product) -> product.isFreeShipping())
+                    .sorted() // ordem de preco
+                    .map(ProductRequestDTO::new)
+                    .collect(Collectors.toList());
+        }
+
+        return listProductsDTO;
+
     }
 
     //TODO criar uma variavel final na interface para aceitar o preço crescente => 3, preço decrescente => 2, criar uma exceçao para receber somente os valores esperados
     @Override
     public List<ProductRequestDTO> getAllByLowerPrice(String category, boolean freeShipping, int order) {
+
+    // List<Product> listProducts = repo.getProductAll();
+    // List<ProductRequestDTO> listProductsDTO = null;
+
+    //     if (order == 3){
+    //     listProductsDTO = listProducts.stream()
+    //             .filter((product) -> product.getCategory().equalsIgnoreCase(category))
+    //             .filter((product) -> product.isFreeShipping())
+    //             .sorted((product1, product2) -> product2.getPrice().compareTo(product1.getPrice())) // ordem de preco
+    //             .map(ProductRequestDTO::new)
+    //             .collect(Collectors.toList());
+    // }
+
         return null;
+
+
+
     }
-
-
-
 
 }
