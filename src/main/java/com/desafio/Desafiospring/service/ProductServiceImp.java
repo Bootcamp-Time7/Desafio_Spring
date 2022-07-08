@@ -161,7 +161,7 @@ public class ProductServiceImp implements IproductService{
     //TODO criar uma classe ParamOrderAlphabetic para aceitar o alfabético crescente => 0, alfabético decrescente => 1
 
     /**
-     * @author: Nicole Calderari
+     * author: Nicole Calderari
      * Esse método faz o filtro dos produtos baseado nos parâmetros que chegam pela requisição do usuário e ordena alfabeticamente,
      * Transforma a lista de produtos em Steam e aplica as HOF`S de filtro para pegar os produtos de acordo com os parâmetros passados
      * depois ordena alfabeticamente de A-Z ou Z-A, dependendo do número que foi passado pelo param Order.
