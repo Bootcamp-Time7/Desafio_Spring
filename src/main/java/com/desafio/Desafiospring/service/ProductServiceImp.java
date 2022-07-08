@@ -5,8 +5,7 @@ import com.desafio.Desafiospring.dto.ProductRequestDTO;
 import com.desafio.Desafiospring.dto.ProductResponseDTO;
 import com.desafio.Desafiospring.model.Product;
 import com.desafio.Desafiospring.repository.ProductRepo;
-import com.desafio.exception.NotFoundExceptions;
-import com.desafio.handler.HandlerExceptions;
+import com.desafio.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,7 +65,7 @@ public class ProductServiceImp implements IproductService{
     @Override
     public List<ProductRequestDTO> getAllByCategory(String category) {
         if(category.equals("false")){
-            throw new NotFoundExceptions("Categoria não encontrada");
+            throw new NotFoundException("Categoria não encontrada");
         }else {
             List<Product> listProducts = repo.getProductAll();
             List<ProductRequestDTO> listProductsDtoCategory = listProducts.stream()

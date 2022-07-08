@@ -1,23 +1,22 @@
 package com.desafio.handler;
 
-import com.desafio.exception.NotFoundExceptions;
-import com.desafio.exception.NotFoundExceptionsDetails;
+import com.desafio.exception.NotFoundException;
+import com.desafio.exception.ExceptionsDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
-public class HandlerExceptions {
+public class HandlerException {
 
-    @ExceptionHandler(NotFoundExceptions.class)
+    @ExceptionHandler(NotFoundException.class)
 
-    public ResponseEntity<NotFoundExceptionsDetails> handlerNotFoundEx (NotFoundExceptions notFound){
+    public ResponseEntity<ExceptionsDetails> handlerNotFoundProduct(NotFoundException notFound){
         return new ResponseEntity<>(
-                NotFoundExceptionsDetails.builder()
+                ExceptionsDetails.builder()
                         .titulo("Produto não encontrado")
                         .status(HttpStatus.NOT_FOUND.value())
                         .mensagem(notFound.getMessage())

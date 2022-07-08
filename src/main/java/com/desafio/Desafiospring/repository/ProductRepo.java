@@ -1,7 +1,6 @@
 package com.desafio.Desafiospring.repository;
 
 import com.desafio.Desafiospring.model.Product;
-import com.desafio.exception.NotFoundExceptions;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
 
