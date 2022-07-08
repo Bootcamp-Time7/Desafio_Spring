@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
-public class HandlerException {
+public class HandlerException extends Throwable {
 
     @ExceptionHandler(NotFoundException.class)
 
