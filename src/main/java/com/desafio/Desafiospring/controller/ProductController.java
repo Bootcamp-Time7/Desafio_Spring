@@ -79,11 +79,10 @@ public class ProductController {
     @GetMapping("/search")
     public ResponseEntity<List<ProductRequestDTO>> getAllByTwoFilters(
             @RequestParam("category") Optional<String> category,
-            @RequestParam("freeShipping") Optional<Boolean> freeShipping,
+            @RequestParam("freeShipping") boolean freeShipping,
             @RequestParam("prestige") Optional<String> prestige) {
         try {
             this.category = category;
-            this.freeShipping = freeShipping;
             this.prestige = prestige;
 
             return ResponseEntity.ok().body(service.getAllByFilters(category, freeShipping, prestige));

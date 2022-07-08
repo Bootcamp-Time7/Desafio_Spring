@@ -5,10 +5,7 @@ import com.desafio.Desafiospring.dto.ProductRequestDTO;
 import com.desafio.Desafiospring.dto.ProductResponseDTO;
 import com.desafio.Desafiospring.model.Product;
 import com.desafio.Desafiospring.repository.ProductRepo;
-import com.desafio.exception.CreateException;
-import com.desafio.exception.ErrorCallListException;
-import com.desafio.exception.FilterErrorException;
-import com.desafio.exception.NotFoundException;
+import com.desafio.exception.*;
 import com.desafio.handler.HandlerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -101,50 +98,56 @@ public class ProductServiceImp implements IproductService{
      * @return
      */
     @Override
-    public List<ProductRequestDTO> getAllByFilters(Optional<String> category, Optional<Boolean> freeShipping, Optional<String> prestige) {
+    public List<ProductRequestDTO> getAllByFilters(Optional<String> category, boolean freeShipping, Optional<String> prestige) {
         List<ProductRequestDTO> lista = null;
         try {
-            List<ProductRequestDTO> list  =  this.getProductAll();
-            if(category.isPresent() && freeShipping.isPresent()){
-                return this.filterByCategoryFreeshipping(list, category.get(), true);
+            if (prestige.isPresent() && freeShipping && category.isPresent() ){
+                throw  new ExcessiveFilter();
             }
-            if(prestige.isPresent() && freeShipping.isPresent()){
-                return  this.filterByPrestigeFreeshipping(list, prestige.get(), true);
+            if(category.isPresent() && freeShipping){
+                return this.filterByCategoryFreeshipping( category.get(), true);
             }
-        }catch (Exception | HandlerException e){
+            if(prestige.isPresent() && freeShipping){
+                return  this.filterByPrestigeFreeshipping( prestige.get(), true);
+            }
+            if(!freeShipping){
+                throw new NotFoundParamFreeshipping();
+            }
+
+        }catch (Exception  e){
            throw new ErrorCallListException();
         }
-        return lista;
+        return  lista;
     }
 
     /**
      *author:Amanda
-     * @param list
      * @param category
      * @param freeShipping
      * @return
      */
-    public   List<ProductRequestDTO> filterByCategoryFreeshipping( List<ProductRequestDTO> list, String category, boolean freeShipping ){
+    public   List<ProductRequestDTO> filterByCategoryFreeshipping( String category, boolean freeShipping ){
         try {
+            List<ProductRequestDTO> list  =  this.getProductAll();
+
             List<ProductRequestDTO> listFilter = list.stream()
                     .filter(q -> q.getCategory().equals(category) && q.isFreeShipping())
                     .collect(Collectors.toList());
-
             return listFilter;
-        } catch (Exception e){
+        } catch (Exception | HandlerException e){
            throw new FilterErrorException();
       }
     }
 
     /**
      *author:Amanda
-     * @param list
      * @param prestige
      * @param freeShipping
      * @return
      */
-    public   List<ProductRequestDTO> filterByPrestigeFreeshipping( List<ProductRequestDTO> list, String prestige, boolean freeShipping ){
+    public   List<ProductRequestDTO> filterByPrestigeFreeshipping( String prestige, boolean freeShipping ){
         try {
+            List<ProductRequestDTO> list  =  this.getProductAll();
             int prestigeLength = prestige.length();
                 if (prestige.length() <= 1) throw new Exception("Por favor, insira pelo menos uma estrela de avaliação");
 
@@ -152,7 +155,7 @@ public class ProductServiceImp implements IproductService{
                     .filter(q -> q.getPrestige().length() >= prestigeLength && q.isFreeShipping() )
                     .collect(Collectors.toList());
             return listFilter;
-        } catch (Exception e){
+        } catch (Exception | HandlerException e){
             throw new FilterErrorException();
         }
     }
@@ -168,15 +171,15 @@ public class ProductServiceImp implements IproductService{
     @Override
     public List<ProductRequestDTO> getAllByAlphabetic(String category, boolean freeShipping, int order) {
         try {
-            List<Product> listProducts = repo.getProductAll(); // colocar método que a Mônica ainda vai fazer
+            List<Product> listProducts = repo.getProductAll();
             List<ProductRequestDTO> listProductsDTO = null;
 
             if(order == 0 ) {
 
                 listProductsDTO = listProducts.stream()
-                        .filter((product) -> product.getCategory().equalsIgnoreCase(category)) // ai deleta essa linha.
+                        .filter((product) -> product.getCategory().equalsIgnoreCase(category))
                         .filter((product) -> product.isFreeShipping())
-                        .sorted((product1, product2) -> product1.getName().compareTo(product2.getName())) // ordem alfabética normal
+                        .sorted((product1, product2) -> product1.getName().compareTo(product2.getName()))
                         .map(ProductRequestDTO::new)
                         .collect(Collectors.toList());
 
@@ -185,7 +188,7 @@ public class ProductServiceImp implements IproductService{
                 listProductsDTO = listProducts.stream()
                         .filter((product) -> product.getCategory().equals(category))
                         .filter((product) -> product.isFreeShipping())
-                        .sorted((product1, product2) -> product2.getName().compareTo(product1.getName())) // de trás pra frente
+                        .sorted((product1, product2) -> product2.getName().compareTo(product1.getName()))
                         .map(ProductRequestDTO::new)
                         .collect(Collectors.toList());
 

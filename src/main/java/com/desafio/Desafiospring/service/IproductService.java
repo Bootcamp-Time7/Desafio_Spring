@@ -16,7 +16,7 @@ public interface IproductService {
     List<CartRequestDTO> createShoppingCart(List<ProductResponseDTO> products);
     List<ProductRequestDTO> getProductAll() throws HandlerException, Error;
     List<ProductRequestDTO> getAllByCategory(String category);
-    List<ProductRequestDTO> getAllByFilters(Optional<String> category, Optional<Boolean> freeShipping, Optional<String> prestige);
+    List<ProductRequestDTO> getAllByFilters(Optional<String> category, boolean freeShipping, Optional<String> prestige);
     List<ProductRequestDTO> getAllByAlphabetic(String category, boolean freeShipping, int order );
 
     //TODO criar uma variavel final na interface para aceitar o preço crescente => 3, preço decrescente => 2, criar uma exceçao para receber somente os valores esperados
