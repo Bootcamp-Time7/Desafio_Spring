@@ -86,16 +86,14 @@ public class ProductController {
 
     }
 
-//
-//    /**
-//     *
-//     * authors: Mônica
-//     * route: articles/category
-//     * Devolve para o viewer a lista dos produtos filtrada por categoria, a partir do chamamento do método construído na camada service.
-//     * O usuário poderá selecionar a categoria de produtos desejada e visualizará uma lista de produtos para aquela categoria.
-//     * return: Lista filtrada por categoria, do tipo ProductRequestDTO
-//     */
-
+    /**
+     *
+     * authors: Mônica
+     * route: articles/category
+     * Devolve para o viewer a lista dos produtos filtrada por categoria, a partir do chamamento do método construído na camada service.
+     * O usuário poderá selecionar a categoria de produtos desejada e visualizará uma lista de produtos para aquela categoria.
+     * return: Lista filtrada por categoria, do tipo ProductRequestDTO
+     */
     @GetMapping("/articles/category")
     public ResponseEntity<List<ProductRequestDTO>> getAllByCategory (@RequestParam String category) {
         List<ProductRequestDTO> listProductByCategory = service.getAllByCategory(category);
