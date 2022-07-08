@@ -72,18 +72,13 @@ public class ProductServiceImp implements IproductService{
 
     @Override
     public List<ProductRequestDTO> getAllByCategory(String category) {
-        if(category.equals("false")){
-            throw new NotFoundExceptions("Categoria não encontrada");
-        }else {
+
             List<Product> listProducts = repo.getProductAll();
             List<ProductRequestDTO> listProductsDtoCategory = listProducts.stream()
                     .filter(productDto->productDto.getCategory().equalsIgnoreCase(category))
                     .map(ProductRequestDTO::new)
                     .collect(Collectors.toList());
             return listProductsDtoCategory;
-        }
-
-
     }
 
     /**
