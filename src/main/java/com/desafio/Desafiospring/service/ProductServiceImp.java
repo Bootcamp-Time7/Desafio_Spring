@@ -34,7 +34,7 @@ public class ProductServiceImp implements IproductService{
                     .map(ProductRequestDTO::new).collect(Collectors.toList());
             return listProductsDTO;
         }catch (Exception e){
-         throw  new ErrorCallListException();
+         throw  new ErrorCallListException(e.getMessage());
         }
     }
 
@@ -47,12 +47,7 @@ public class ProductServiceImp implements IproductService{
      */
     @Override
     public void saveProductsVoid(List<Product> products) {
-        try {
-            repo.saveProductsVoid(products);
-
-             }catch (Exception e){
-            throw new CreateException();
-        }
+        repo.saveProductsVoid(products);
     }
 
 
@@ -62,7 +57,7 @@ public class ProductServiceImp implements IproductService{
           return null;
 
       }catch (Exception e){
-          throw new CreateException();
+          throw new CreateException(e.getMessage());
       }
     }
 
@@ -85,7 +80,7 @@ public class ProductServiceImp implements IproductService{
                         .collect(Collectors.toList());
                 return listProductsDtoCategory;
             } catch (Exception e){
-            throw new ErrorCallListException();
+            throw new ErrorCallListException(e.getMessage());
         }
     }
 
@@ -99,9 +94,8 @@ public class ProductServiceImp implements IproductService{
     @Override
     public List<ProductRequestDTO> getAllByFilters(Optional<String> category, boolean freeShipping, Optional<String> prestige) {
         List<ProductRequestDTO> lista = null;
-        try {
             if (prestige.isPresent() && freeShipping && category.isPresent() ){
-                throw  new ExcessiveFilter();
+                throw  new ExcessiveFilter("Por favor, insira somente dois valores :  free shipping + category ou free shipping + prestige" );
             }
             if(category.isPresent() && freeShipping){
                 return this.filterByCategoryFreeshipping( category.get(), true);
@@ -110,12 +104,8 @@ public class ProductServiceImp implements IproductService{
                 return  this.filterByPrestigeFreeshipping( prestige.get(), true);
             }
             if(!freeShipping){
-                throw new NotFoundParamFreeshipping();
+                throw new NotFoundParamFreeshipping("Não é permitido sem selecionar free shipping");
             }
-
-        }catch (Exception  e){
-           throw new ErrorCallListException();
-        }
         return  lista;
     }
 
@@ -134,7 +124,7 @@ public class ProductServiceImp implements IproductService{
                     .collect(Collectors.toList());
             return listFilter;
         } catch (Exception | HandlerException e){
-           throw new FilterErrorException();
+           throw new FilterErrorException(e.getMessage());
       }
     }
 
@@ -155,7 +145,7 @@ public class ProductServiceImp implements IproductService{
                     .collect(Collectors.toList());
             return listFilter;
         } catch (Exception | HandlerException e){
-            throw new FilterErrorException();
+            throw new FilterErrorException(e.getMessage());
         }
     }
 
@@ -193,7 +183,7 @@ public class ProductServiceImp implements IproductService{
             }
             return listProductsDTO;
         }catch (Exception e){
-            throw new ErrorCallListException();
+            throw new ErrorCallListException(e.getMessage());
         }
     }
 
@@ -222,7 +212,7 @@ public class ProductServiceImp implements IproductService{
             }
             return listProductsDTO;
         }catch (Exception e){
-            throw  new ErrorCallListException();
+            throw  new ErrorCallListException(e.getMessage());
         }
     }
 
@@ -239,7 +229,6 @@ public class ProductServiceImp implements IproductService{
         try {
             List<ProductRequestDTO> listProductsDTO = null;
             List<Product> listProducts = repo.getProductAll();
-
             if (order == 3){
                 listProductsDTO = listProducts.stream()
                         .filter((product) -> product.getCategory().equalsIgnoreCase(category))
@@ -249,9 +238,8 @@ public class ProductServiceImp implements IproductService{
                         .collect(Collectors.toList());
             }
             return listProductsDTO;
-
         } catch (Exception e){
-            throw  new ErrorCallListException();
+            throw  new ErrorCallListException(e.getMessage());
         }
     }
 }
