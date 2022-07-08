@@ -2,6 +2,8 @@ package com.desafio.Desafiospring.controller;
 import com.desafio.Desafiospring.model.Product;
 import com.desafio.Desafiospring.dto.ProductRequestDTO;
 import com.desafio.Desafiospring.service.IproductService;
+import com.desafio.exception.CreateException;
+import com.desafio.exception.ErrorCallListException;
 import com.desafio.handler.HandlerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,61 +30,81 @@ public class ProductController {
 
 
 
-//    /**
-//     *
-//     * authors: Amanda, Gabryel, Marina, Mônica, Nicole, Yago
-//     * route: articles
-//     * Devolve para o viewer a lista de todos os produtos, a partir do chamamento do método construído na camada service
-//     * return: Lista do tipo ProductRequestDTO
-//     */
+    /**
+     *
+     * authors: Amanda, Gabryel, Marina, Mônica, Nicole, Yago
+     * route: articles
+     * Devolve para o viewer a lista de todos os produtos, a partir do chamamento do método construído na camada service
+     * return: Lista do tipo ProductRequestDTO
+     */
 
     @GetMapping("")
 
     public ResponseEntity<List<ProductRequestDTO>> getProductAll() throws HandlerException {
-        List<ProductRequestDTO> list =  service.getProductAll();
-        return ResponseEntity.ok(list);
+        try {
+            List<ProductRequestDTO> list =  service.getProductAll();
+            return ResponseEntity.ok(list);
+        }catch (Exception e){
+            throw new ErrorCallListException();
+        }
+
+    }
+
+
+    /**
+     * author Nicole Calderari
+     * @param category
+     * @param freeShipping
+     * @param order
+     * @return
+     */
+    @GetMapping("/alphabet")
+    public ResponseEntity<List<ProductRequestDTO>> getAllByAlphabetic(@RequestParam String category, @RequestParam  boolean freeShipping, @RequestParam  int order) {
+        try {
+            List<ProductRequestDTO> list = service.getAllByAlphabetic(category, freeShipping, order);
+            return ResponseEntity.ok(list);
+        }catch (Exception e){
+            throw new ErrorCallListException();
+        }
+
     }
 
     /**
-     *
+     * author: Amanda
      * @param category
      * @param freeShipping
      * @param prestige
      * @return
      */
-    /**
-     * @author Nicole Calderari
-     * Esta é uma rota get, nela foi colocado um fragmento a mais na url "/alphabet" porque estava dando conflito
-     * com a rota genérica de todos os produtos.
-     * Esse método requisita os parâmetros da url e os passa para a função getAllByAlphabetic que faz a ordenação.
-     * Retorna status 200 e a lista dos produtos filtrados de acordo com os parâmetros.
-     */
-    @GetMapping("/alphabet")
-    public ResponseEntity<List<ProductRequestDTO>> getAllByAlphabetic(@RequestParam String category, @RequestParam  boolean freeShipping, @RequestParam  int order) {
-       List<ProductRequestDTO> list = service.getAllByAlphabetic(category, freeShipping, order);
-       return ResponseEntity.ok(list);
-    }
-
-
     @GetMapping("/search")
     public ResponseEntity<List<ProductRequestDTO>> getAllByTwoFilters(
             @RequestParam("category") Optional<String> category,
             @RequestParam("freeShipping") Optional<Boolean> freeShipping,
             @RequestParam("prestige") Optional<String> prestige) {
-        this.category = category;
-        this.freeShipping = freeShipping;
-        this.prestige = prestige;
+        try {
+            this.category = category;
+            this.freeShipping = freeShipping;
+            this.prestige = prestige;
 
-        return ResponseEntity.ok().body(service.getAllByFilters(category, freeShipping, prestige));
+            return ResponseEntity.ok().body(service.getAllByFilters(category, freeShipping, prestige));
+        }catch (Exception e ){
+            throw new ErrorCallListException();
+        }
+
     }
 
     /**
-     *
+     *author: Yago
      * @param products
      */
     @PostMapping("/insert-articles-request")
     public void saveProductsVoid(@RequestBody List<Product> products){
-        service.saveProductsVoid(products);
+        try {
+            service.saveProductsVoid(products);
+
+        }catch (Exception e){
+            throw new CreateException();
+        }
 
     }
 
@@ -98,9 +120,12 @@ public class ProductController {
 
     @GetMapping("/category")
     public ResponseEntity<List<ProductRequestDTO>> getAllByCategory (@RequestParam String category) {
-        List<ProductRequestDTO> listProductByCategory = service.getAllByCategory(category);
-        return ResponseEntity.ok(listProductByCategory);
-
+        try {
+            List<ProductRequestDTO> listProductByCategory = service.getAllByCategory(category);
+            return ResponseEntity.ok(listProductByCategory);
+        }catch (Exception e){
+            throw new ErrorCallListException();
+        }
     }
 
 
