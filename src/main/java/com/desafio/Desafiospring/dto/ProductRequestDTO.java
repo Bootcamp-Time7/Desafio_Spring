@@ -4,7 +4,7 @@ import com.desafio.Desafiospring.model.Product;
 import lombok.Data;
 
 @Data
-public class ProductRequestDTO  {
+public class ProductRequestDTO  implements Comparable <ProductRequestDTO> {
     private long productId;
     private String name;
     private String category;
@@ -24,5 +24,18 @@ public class ProductRequestDTO  {
         this.freeShipping = product.isFreeShipping();
         this.prestige = product.getPrestige();
     }
+
+@Override
+public int compareTo(ProductRequestDTO compare){
+    if (this.price > compare.getPrice()) {
+        return 1;
+    } 
+
+    if (this.price < compare.getPrice()) {
+        return -1;
+    }
+
+    return 0;
+}
 
 }
