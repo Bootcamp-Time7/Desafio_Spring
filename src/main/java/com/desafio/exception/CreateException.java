@@ -13,4 +13,9 @@ public class CreateException extends RuntimeException {
         this.description = description;
         this.code = HttpStatus.INTERNAL_SERVER_ERROR;
     }
+
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return this;
+    }
 }

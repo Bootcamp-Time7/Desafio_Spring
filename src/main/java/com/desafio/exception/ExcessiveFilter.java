@@ -15,4 +15,8 @@ public class ExcessiveFilter extends RuntimeException{
             this.description = description;
 
     }
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return this;
+    }
 }

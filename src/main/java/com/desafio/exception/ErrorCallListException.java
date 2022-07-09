@@ -14,6 +14,10 @@ public class ErrorCallListException extends  RuntimeException{
         this.code = HttpStatus.NOT_FOUND;
     }
 
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return this;
+    }
 
 }
 

@@ -2,10 +2,7 @@ package com.desafio.Desafiospring.controller;
 import com.desafio.Desafiospring.model.Product;
 import com.desafio.Desafiospring.dto.ProductRequestDTO;
 import com.desafio.Desafiospring.service.IproductService;
-import com.desafio.exception.CreateException;
-import com.desafio.exception.ErrorCallListException;
-import com.desafio.exception.ExcessiveFilter;
-import com.desafio.exception.NotFoundParamFreeshipping;
+import com.desafio.exception.*;
 import com.desafio.handler.HandlerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,13 +40,8 @@ public class ProductController {
     @GetMapping("")
 
     public ResponseEntity<List<ProductRequestDTO>> getProductAll() throws HandlerException {
-        try {
             List<ProductRequestDTO> list =  service.getProductAll();
             return ResponseEntity.ok(list);
-        }catch (Exception e){
-            throw new ErrorCallListException(e.getMessage());
-        }
-
     }
 
 
@@ -62,13 +54,8 @@ public class ProductController {
      */
     @GetMapping("/alphabet")
     public ResponseEntity<List<ProductRequestDTO>> getAllByAlphabetic(@RequestParam String category, @RequestParam  boolean freeShipping, @RequestParam  int order) {
-        try {
             List<ProductRequestDTO> list = service.getAllByAlphabetic(category, freeShipping, order);
             return ResponseEntity.ok(list);
-        }catch (Exception e){
-            throw new ErrorCallListException(e.getMessage());
-        }
-
     }
 
     /**
@@ -79,7 +66,7 @@ public class ProductController {
      * @return
      */
     @GetMapping("/search")
-    @ExceptionHandler({ ExcessiveFilter.class, NotFoundParamFreeshipping.class, ErrorCallListException.class})
+    @ExceptionHandler({ NotFoundException.class})
     public ResponseEntity<List<ProductRequestDTO>> getAllByTwoFilters(
             @RequestParam("category") Optional<String> category,
             @RequestParam("freeShipping") boolean freeShipping,
@@ -111,12 +98,10 @@ public class ProductController {
 
     @GetMapping("/category")
     public ResponseEntity<List<ProductRequestDTO>> getAllByCategory (@RequestParam String category) {
-        try {
+
             List<ProductRequestDTO> listProductByCategory = service.getAllByCategory(category);
             return ResponseEntity.ok(listProductByCategory);
-        }catch (Exception e){
-            throw new ErrorCallListException(e.getMessage());
-        }
+
     }
 
     /**
