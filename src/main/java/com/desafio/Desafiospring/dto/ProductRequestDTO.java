@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @Data
-public class ProductRequestDTO  {
+public class ProductRequestDTO  implements Comparable <ProductRequestDTO> {
     private long productId;
     private String name;
     private String category;
@@ -28,5 +28,18 @@ public class ProductRequestDTO  {
         this.freeShipping = product.isFreeShipping();
         this.prestige = product.getPrestige();
     }
+
+@Override
+public int compareTo(ProductRequestDTO compare){
+    if (this.price > compare.getPrice()) {
+        return 1;
+    } 
+
+    if (this.price < compare.getPrice()) {
+        return -1;
+    }
+
+    return 0;
+}
 
 }

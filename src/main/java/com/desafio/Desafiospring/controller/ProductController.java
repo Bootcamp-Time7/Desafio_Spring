@@ -2,12 +2,17 @@ package com.desafio.Desafiospring.controller;
 import com.desafio.Desafiospring.model.Product;
 import com.desafio.Desafiospring.dto.ProductRequestDTO;
 import com.desafio.Desafiospring.service.IproductService;
+import com.desafio.exception.*;
+import com.desafio.handler.HandlerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -23,57 +28,104 @@ public class ProductController {
     private Optional<String> prestige;
 
 
-//    /**
-//     *
-//     * authors: Amanda, Gabryel, Marina, Mônica, Nicole, Yago
-//     * route: articles
-//     * Devolve para o viewer a lista de todos os produtos, a partir do chamamento do método construído na camada service
-//     * return: Lista do tipo ProductRequestDTO
-//     */
+
+    /**
+     *
+     * authors: Amanda, Gabryel, Marina, Mônica, Nicole, Yago
+     * route: articles
+     * Devolve para o viewer a lista de todos os produtos, a partir do chamamento do método construído na camada service
+     * return: Lista do tipo ProductRequestDTO
+     */
 
     @GetMapping("")
 
-    public ResponseEntity<List<ProductRequestDTO>> getProductAll(){
-        List<ProductRequestDTO> list =  service.getProductAll();
-        return ResponseEntity.ok(list);
+    public ResponseEntity<List<ProductRequestDTO>> getProductAll() throws HandlerException {
+            List<ProductRequestDTO> list =  service.getProductAll();
+            return ResponseEntity.ok(list);
     }
 
+
+    /**
+     * author Nicole Calderari
+     * @param category
+     * @param freeShipping
+     * @param order
+     * @return
+     */
+    @GetMapping("/alphabet")
+    public ResponseEntity<List<ProductRequestDTO>> getAllByAlphabetic(@RequestParam String category, @RequestParam  boolean freeShipping, @RequestParam  int order) {
+            List<ProductRequestDTO> list = service.getAllByAlphabetic(category, freeShipping, order);
+            return ResponseEntity.ok(list);
+    }
+
+    /**
+     * author: Amanda
+     * @param category
+     * @param freeShipping
+     * @param prestige
+     * @return
+     */
     @GetMapping("/search")
+    @ExceptionHandler({ NotFoundException.class})
     public ResponseEntity<List<ProductRequestDTO>> getAllByTwoFilters(
             @RequestParam("category") Optional<String> category,
-            @RequestParam("freeShipping") Optional<Boolean> freeShipping,
+            @RequestParam("freeShipping") boolean freeShipping,
             @RequestParam("prestige") Optional<String> prestige) {
-        this.category = category;
-        this.freeShipping = freeShipping;
-        this.prestige = prestige;
-
-        return ResponseEntity.ok().body(service.getAllByFilters(category, freeShipping, prestige));
+            this.category = category;
+            this.prestige = prestige;
+            return ResponseEntity.ok().body(service.getAllByFilters(category, freeShipping, prestige));
     }
 
-
-    @PostMapping("/add")
+    /**
+     *author: Yago
+     * @param products
+     */
+    @PostMapping("/insert-articles-request")
+    @ExceptionHandler({ CreateException.class})
     public void saveProductsVoid(@RequestBody List<Product> products){
-        service.saveProductsVoid(products);
-
+            service.saveProductsVoid(products);
     }
 
-//
-//    /**
-//     *
-//     * authors: Mônica
-//     * route: articles/category
-//     * Devolve para o viewer a lista dos produtos filtrada por categoria, a partir do chamamento do método construído na camada service.
-//     * O usuário poderá selecionar a categoria de produtos desejada e visualizará uma lista de produtos para aquela categoria.
-//     * return: Lista filtrada por categoria, do tipo ProductRequestDTO
-//     */
 
-    @GetMapping("/articles/category")
+    /**
+     *
+     * authors: Mônica
+     * route: articles/category
+     * Devolve para o viewer a lista dos produtos filtrada por categoria, a partir do chamamento do método construído na camada service.
+     * O usuário poderá selecionar a categoria de produtos desejada e visualizará uma lista de produtos para aquela categoria.
+     * return: Lista filtrada por categoria, do tipo ProductRequestDTO
+     */
+
+    @GetMapping("/category")
     public ResponseEntity<List<ProductRequestDTO>> getAllByCategory (@RequestParam String category) {
-        List<ProductRequestDTO> listProductByCategory = service.getAllByCategory(category);
-        return ResponseEntity.ok(listProductByCategory);
+
+            List<ProductRequestDTO> listProductByCategory = service.getAllByCategory(category);
+            return ResponseEntity.ok(listProductByCategory);
 
     }
 
+    /**
+     * author Gabryel Wapnyk
+     * @param category
+     * @param freeShipping
+     * @param order
+     */
+    @GetMapping("/order/decrescent")
+    public ResponseEntity<List<ProductRequestDTO>> getAllByHigherPrice (@RequestParam String category, @RequestParam boolean freeShipping, @RequestParam int order) {
+        List<ProductRequestDTO> listProductAllByHigherPrice = service.getAllByHigherPrice(category, freeShipping, order);
+        return ResponseEntity.ok(listProductAllByHigherPrice);
+    }
 
+    /**
+     * author Gabryel Wapnyk
+     * @param category
+     * @param freeShipping
+     * @param order
+     */
+    @GetMapping("/order/crescent")
+    public ResponseEntity<List<ProductRequestDTO>> getAllByLowerPrice (@RequestParam String category, @RequestParam boolean freeShipping, @RequestParam int order) {
+        List<ProductRequestDTO> listProductAllLowerPrice = service.getAllByLowerPrice(category, freeShipping, order);
+        return ResponseEntity.ok(listProductAllLowerPrice);
+    }
 
 }
