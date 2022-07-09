@@ -1,0 +1,155 @@
+[ {
+  "id" : 1,
+  "articles" : [ {
+    "productId" : 1,
+    "name" : "Serra de Bancada",
+    "category" : "Ferramentas",
+    "brand" : "FORTGPRO",
+    "price" : 1800.0,
+    "quantity" : 2,
+    "freeShipping" : true,
+    "prestige" : "****"
+  }, {
+    "productId" : 3,
+    "name" : "Soldadora",
+    "category" : "Ferramentas",
+    "brand" : "Black & Decker",
+    "price" : 350.0,
+    "quantity" : 2,
+    "freeShipping" : true,
+    "prestige" : "***"
+  } ],
+  "total" : 4300.0
+}, {
+  "id" : 2,
+  "articles" : [ {
+    "productId" : 1,
+    "name" : "Serra de Bancada",
+    "category" : "Ferramentas",
+    "brand" : "FORTGPRO",
+    "price" : 1800.0,
+    "quantity" : 2,
+    "freeShipping" : true,
+    "prestige" : "****"
+  }, {
+    "productId" : 3,
+    "name" : "Soldadora",
+    "category" : "Ferramentas",
+    "brand" : "Black & Decker",
+    "price" : 350.0,
+    "quantity" : 2,
+    "freeShipping" : true,
+    "prestige" : "***"
+  } ],
+  "total" : 4300.0
+}, {
+  "id" : 3,
+  "articles" : [ {
+    "productId" : 1,
+    "name" : "Serra de Bancada",
+    "category" : "Ferramentas",
+    "brand" : "FORTGPRO",
+    "price" : 1800.0,
+    "quantity" : 2,
+    "freeShipping" : true,
+    "prestige" : "****"
+  }, {
+    "productId" : 3,
+    "name" : "Soldadora",
+    "category" : "Ferramentas",
+    "brand" : "Black & Decker",
+    "price" : 350.0,
+    "quantity" : 2,
+    "freeShipping" : true,
+    "prestige" : "***"
+  } ],
+  "total" : 4300.0
+}, {
+  "id" : 4,
+  "articles" : [ {
+    "productId" : 1,
+    "name" : "Serra de Bancada",
+    "category" : "Ferramentas",
+    "brand" : "FORTGPRO",
+    "price" : 1800.0,
+    "quantity" : 2,
+    "freeShipping" : true,
+    "prestige" : "****"
+  }, {
+    "productId" : 3,
+    "name" : "Soldadora",
+    "category" : "Ferramentas",
+    "brand" : "Black & Decker",
+    "price" : 350.0,
+    "quantity" : 2,
+    "freeShipping" : true,
+    "prestige" : "***"
+  } ],
+  "total" : 4300.0
+}, {
+  "id" : 5,
+  "articles" : [ {
+    "productId" : 1,
+    "name" : "Serra de Bancada",
+    "category" : "Ferramentas",
+    "brand" : "FORTGPRO",
+    "price" : 1800.0,
+    "quantity" : 2,
+    "freeShipping" : true,
+    "prestige" : "****"
+  }, {
+    "productId" : 3,
+    "name" : "Soldadora",
+    "category" : "Ferramentas",
+    "brand" : "Black & Decker",
+    "price" : 350.0,
+    "quantity" : 2,
+    "freeShipping" : true,
+    "prestige" : "***"
+  } ],
+  "total" : 4300.0
+}, {
+  "id" : 6,
+  "articles" : [ {
+    "productId" : 1,
+    "name" : "Serra de Bancada",
+    "category" : "Ferramentas",
+    "brand" : "FORTGPRO",
+    "price" : 1800.0,
+    "quantity" : 2,
+    "freeShipping" : true,
+    "prestige" : "****"
+  }, {
+    "productId" : 3,
+    "name" : "Soldadora",
+    "category" : "Ferramentas",
+    "brand" : "Black & Decker",
+    "price" : 350.0,
+    "quantity" : 2,
+    "freeShipping" : true,
+    "prestige" : "***"
+  } ],
+  "total" : 4300.0
+}, {
+  "id" : 7,
+  "articles" : [ {
+    "productId" : 1,
+    "name" : "Serra de Bancada",
+    "category" : "Ferramentas",
+    "brand" : "FORTGPRO",
+    "price" : 1800.0,
+    "quantity" : 2,
+    "freeShipping" : true,
+    "prestige" : "****"
+  }, {
+    "productId" : 3,
+    "name" : "Soldadora",
+    "category" : "Ferramentas",
+    "brand" : "Black & Decker",
+    "price" : 350.0,
+    "quantity" : 2,
+    "freeShipping" : true,
+    "prestige" : "***"
+  } ],
+  "total" : 4300.0
+} ]

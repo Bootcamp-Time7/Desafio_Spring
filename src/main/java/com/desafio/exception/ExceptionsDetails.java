@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class NotFoundExceptionsDetails {
+public class ExceptionsDetails {
     private String titulo;
     private int status;
     private String mensagem;
