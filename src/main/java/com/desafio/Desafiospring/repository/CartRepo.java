@@ -2,6 +2,8 @@ package com.desafio.Desafiospring.repository;
 
 import com.desafio.Desafiospring.model.Cart;
 import com.desafio.Desafiospring.model.Product;
+import com.desafio.exception.CreateException;
+import com.desafio.exception.ErrorCallListException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,11 +32,8 @@ public class CartRepo {
 
         try {
             list = Arrays.asList(mapper.readValue(new File(fileTicketJson), Cart[].class));
-
         }catch (Exception e){
-            System.out.println(e.getMessage());
-            System.out.println(e.getCause());
-
+            throw new ErrorCallListException(e.getMessage());
         }
         return list;
     }
@@ -54,10 +53,8 @@ public class CartRepo {
             writer.writeValue(new File(fileTicketJson), copy);
 
         } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-            System.out.println("Erro");
+            throw new CreateException(ex.getMessage());
         }
-        //TODO        throw new exeption;
     }
 
 }
