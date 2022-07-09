@@ -25,6 +25,11 @@ public class CartController {
     @Autowired
     IproductService iproductService;
 
+    /**
+     *
+     * @param purchaseList
+     * @return
+     */
     @PostMapping("/purchase-request")
     public ResponseEntity <CartResponseDTO> cartRequestShopping (@RequestBody List<Purchase> purchaseList){
         CartResponseDTO cartResponseDTO = cartService.createShoppingCart(purchaseList);

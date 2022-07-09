@@ -28,13 +28,10 @@ public class ProductController {
     private Optional<String> prestige;
 
 
-
     /**
-     *
-     * authors: Amanda, Gabryel, Marina, Mônica, Nicole, Yago
-     * route: articles
-     * Devolve para o viewer a lista de todos os produtos, a partir do chamamento do método construído na camada service
-     * return: Lista do tipo ProductRequestDTO
+     * author:  Amanda, Gabryel, Marina, Mônica, Nicole, Yago
+     * @return
+     * @throws HandlerException
      */
 
     @GetMapping("")
@@ -46,7 +43,7 @@ public class ProductController {
 
 
     /**
-     * author Nicole Calderari
+    * author Nicole Calderari
      * @param category
      * @param freeShipping
      * @param order
@@ -77,7 +74,7 @@ public class ProductController {
     }
 
     /**
-     *author: Yago
+     * author: Yago
      * @param products
      */
     @PostMapping("/insert-articles-request")
@@ -88,14 +85,10 @@ public class ProductController {
 
 
     /**
-     *
-     * authors: Mônica
-     * route: articles/category
-     * Devolve para o viewer a lista dos produtos filtrada por categoria, a partir do chamamento do método construído na camada service.
-     * O usuário poderá selecionar a categoria de produtos desejada e visualizará uma lista de produtos para aquela categoria.
-     * return: Lista filtrada por categoria, do tipo ProductRequestDTO
+     * author: Monica
+     * @param category
+     * @return
      */
-
     @GetMapping("/category")
     public ResponseEntity<List<ProductRequestDTO>> getAllByCategory (@RequestParam String category) {
 
@@ -105,10 +98,11 @@ public class ProductController {
     }
 
     /**
-     * author Gabryel Wapnyk
+     * author: Gabriel
      * @param category
      * @param freeShipping
      * @param order
+     * @return
      */
     @GetMapping("/order/decrescent")
     public ResponseEntity<List<ProductRequestDTO>> getAllByHigherPrice (@RequestParam String category, @RequestParam boolean freeShipping, @RequestParam int order) {
@@ -117,10 +111,11 @@ public class ProductController {
     }
 
     /**
-     * author Gabryel Wapnyk
+     *
      * @param category
      * @param freeShipping
      * @param order
+     * @return
      */
     @GetMapping("/order/crescent")
     public ResponseEntity<List<ProductRequestDTO>> getAllByLowerPrice (@RequestParam String category, @RequestParam boolean freeShipping, @RequestParam int order) {

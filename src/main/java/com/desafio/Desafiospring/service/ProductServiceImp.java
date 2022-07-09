@@ -20,10 +20,10 @@ public class ProductServiceImp implements IproductService{
     ProductRepo repo;
 
     /**
-     *
      * author: Amanda, Gabryel, Marina, Mônica, Nicole, Yago
-     * Permite acesso ao método getProductAll do repositório, cria uma lista de produtos do tipo ProductRequestDTO e retorna essa lista
-     *
+     * @return
+     * @throws HandlerException
+     * @throws Error
      */
     @Override
     public List<ProductRequestDTO> getProductAll() throws HandlerException, Error {
@@ -37,16 +37,19 @@ public class ProductServiceImp implements IproductService{
         }
     }
 
+    /**
+     * author: Marina
+     * @param productList
+     * @return
+     */
     @Override
     public List<Product> getListForId(List<Product> productList) {
        return repo.getListForId(productList);
     }
 
     /**
-     *
      * author: Yago
-     * Permite acesso ao método saveProducts do repositório
-     *
+     * @param products
      */
     @Override
     public void saveProductsVoid(List<Product> products) {
@@ -54,25 +57,10 @@ public class ProductServiceImp implements IproductService{
     }
 
 
-
-    @Override
-    public List<CartRequestDTO> createShoppingCart(List<ProductResponseDTO> products) {
-      try {
-          return null;
-
-      }catch (Exception e){
-          throw new CreateException(e.getMessage());
-      }
-    }
-
     /**
-     *
-     * author: Mônica
-     * param: String category
-     * Permite acesso ao método getProductAll do repositório. Cria uma nova lista do tipo ProductRequestDTO. É feito um filtro por categoria de produtos,
-     * inseridos os objetos to tipo ProductRequestDTO e criada a lista final.
-     * return <ProductRequestDTO> listProductsDtoCategory
-     *
+     * author: Monica
+     * @param category
+     * @return
      */
     @Override
     public List<ProductRequestDTO> getAllByCategory(String category) {
@@ -89,14 +77,12 @@ public class ProductServiceImp implements IproductService{
     }
 
     /**
-     *author:Amanda
+     * author: Amanda
      * @param category
      * @param freeShipping
      * @param prestige
      * @return
      */
-
-
     @Override
     public List<ProductRequestDTO> getAllByFilters(Optional<String> category, boolean freeShipping, Optional<String> prestige) {
         List<ProductRequestDTO> lista = null;
@@ -116,7 +102,7 @@ public class ProductServiceImp implements IproductService{
     }
 
     /**
-     *author:Amanda
+     * author: Amanda
      * @param category
      * @param freeShipping
      * @return
@@ -135,7 +121,7 @@ public class ProductServiceImp implements IproductService{
     }
 
     /**
-     *author:Amanda
+     * author: Amanda
      * @param prestige
      * @param freeShipping
      * @return
@@ -157,11 +143,11 @@ public class ProductServiceImp implements IproductService{
 
 
     /**
-     * author: Nicole Calderari
-     * Esse método faz o filtro dos produtos baseado nos parâmetros que chegam pela requisição do usuário e ordena alfabeticamente,
-     * Transforma a lista de produtos em Steam e aplica as HOF`S de filtro para pegar os produtos de acordo com os parâmetros passados
-     * depois ordena alfabeticamente de A-Z ou Z-A, dependendo do número que foi passado pelo param Order.
-     * Retorna os produtos filtrados e convertidos para DTO.
+     * author: Nicole
+     * @param category
+     * @param freeShipping
+     * @param order
+     * @return
      */
     @Override
     public List<ProductRequestDTO> getAllByAlphabetic(String category, boolean freeShipping, int order) {
@@ -194,13 +180,12 @@ public class ProductServiceImp implements IproductService{
     }
 
     /**
-     * author: Gabryel Wapnyk
-     * Esse método faz o filtro dos produtos baseado nos parâmetros que chegam pela requisição do usuário e ordena decrescentemente,
-     * Transforma a lista de produtos em Steam e aplica as HOF`S de filtro para pegar os produtos de acordo com os parâmetros passados
-     * depois ordena decrescentemente, de acordo com o número que foi passado pelo param Order que tem que ser 2.
-     * Retorna os produtos filtrados e convertidos para DTO.
+     * author: Gabriel
+     * @param category
+     * @param freeShipping
+     * @param order
+     * @return
      */
-
     @Override
     public List<ProductRequestDTO> getAllByHigherPrice(String category, boolean freeShipping, int order) {
 
@@ -223,11 +208,11 @@ public class ProductServiceImp implements IproductService{
     }
 
     /**
-     * author: Gabryel Wapnyk
-     * Esse método faz o filtro dos produtos baseado nos parâmetros que chegam pela requisição do usuário e ordena crescentemente,
-     * Transforma a lista de produtos em Steam e aplica as HOF`S de filtro para pegar os produtos de acordo com os parâmetros passados
-     * depois ordena crescentemente, de acordo com o número que foi passado pelo param Order que tem que ser 2.
-     * Retorna os produtos filtrados e convertidos para DTO.
+     * author: Gabriel
+     * @param category
+     * @param freeShipping
+     * @param order
+     * @return
      */
 
     @Override
