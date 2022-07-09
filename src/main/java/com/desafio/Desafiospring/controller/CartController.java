@@ -1,6 +1,7 @@
 package com.desafio.Desafiospring.controller;
 
 
+import com.desafio.Desafiospring.dto.CartResponseDTO;
 import com.desafio.Desafiospring.model.Cart;
 import com.desafio.Desafiospring.model.Purchase;
 import com.desafio.Desafiospring.service.ICartService;
@@ -25,9 +26,9 @@ public class CartController {
     IproductService iproductService;
 
     @PostMapping("/purchase-request")
-    public ResponseEntity <Cart> cartRequestShopping (@RequestBody List<Purchase> purchaseList){
-        cartService.createShoppingCart(purchaseList);
-        return null;
+    public ResponseEntity <CartResponseDTO> cartRequestShopping (@RequestBody List<Purchase> purchaseList){
+        CartResponseDTO cartResponseDTO = cartService.createShoppingCart(purchaseList);
+        return ResponseEntity.ok(cartResponseDTO);
     }
 
 }

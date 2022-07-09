@@ -6,9 +6,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,14 +18,14 @@ import java.util.List;
 @Repository
 public class CartRepo {
 
-    private final String fileTicketJson="src/main/resources/cart.json";
+    private static final String fileTicketJson="src/main/resources/cart.json";
 
     public List<Cart> getCartAll(){
-        ObjectMapper mapperJson = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
         List<Cart> list = null;
 
         try {
-            list = Arrays.asList(mapperJson.readValue( new File(fileTicketJson), Cart[].class));
+            list = Arrays.asList(mapper.readValue(new File(fileTicketJson), Cart[].class));
 
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -35,22 +37,20 @@ public class CartRepo {
 
 
     public void saveCart(Cart cart){
-        ObjectMapper mapperJson = new ObjectMapper();
-        ObjectWriter writerJson = mapperJson.writer(new DefaultPrettyPrinter());
-        List<Cart> tempList = null;
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
 
         try{
-            tempList = mapperJson.readValue(new File(fileTicketJson), new TypeReference<List<Cart>>(){});
-            tempList.add(cart);
-            writerJson.writeValue(new File(fileTicketJson),tempList);
+            Cart[] cartTemp = mapper.readValue(new File(fileTicketJson), Cart[].class);
+            List<Cart> copy = new ArrayList<>(List.of(cartTemp));
+            copy.add(cart);
+            writer.writeValue(new File(fileTicketJson), copy);
 
-        }
-        catch (Exception e){
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
             System.out.println("Erro");
         }
+//TODO        throw new exeption;
     }
-
-
-
 
 }

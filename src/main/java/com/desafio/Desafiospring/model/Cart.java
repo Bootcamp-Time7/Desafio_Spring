@@ -4,13 +4,16 @@ import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
+
 @Builder
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Cart {
 
     private long id;
     private List<Product> articles;
-    private double total;;
+    private double total;
 
 }
