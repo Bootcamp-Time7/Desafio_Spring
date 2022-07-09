@@ -22,11 +22,8 @@ public class ProductRepo {
     private final  String fileJson = "src/main/resources/products.json";
 
     /**
-     *
-     *  author: Amanda, Gabryel, Marina, Mônica, Nicole, Yago
-     *  O presente método permite retorno de todos os valores do banco de dados, convertendo o arquivo json para uma lista do tipo Produto, reconhecida pelo java.
-     *  return: List<Product>
-     *
+     * author: Amanda, Gabryel, Marina, Mônica, Nicole, Yago
+     * @return
      */
 
      public List<Product> getProductAll(){
@@ -41,7 +38,7 @@ public class ProductRepo {
      }
 
     /**
-     *author: Yago
+     * author: Yago
      * @param products
      */
     public void saveProductsVoid(List<Product> products){
@@ -61,11 +58,21 @@ public class ProductRepo {
         }
     }
 
+    /**
+     * author: marina
+     * @param productList
+     * @return
+     */
     public List<Product> getListForId(List<Product> productList) {
         List<Product> listAllProducts = getProductAll();
         return productList.stream().map(p -> getProductById(p.getProductId())).collect(Collectors.toList());
     }
 
+    /**
+     * author : marina
+     * @param id
+     * @return
+     */
     public Product getProductById(long id) {
         List<Product> lista = null;
         ObjectMapper mapper = new ObjectMapper();
@@ -84,6 +91,10 @@ public class ProductRepo {
 //        throw new NotFoundException("Produto não localizado");
     }
 
+    /**
+     *
+     * @return
+     */
     public long contador(){
         return getProductAll().size();
     }

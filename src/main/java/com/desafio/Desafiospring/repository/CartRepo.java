@@ -20,6 +20,10 @@ public class CartRepo {
 
     private static final String fileTicketJson="src/main/resources/cart.json";
 
+    /**
+     *
+     * @return
+     */
     public List<Cart> getCartAll(){
         ObjectMapper mapper = new ObjectMapper();
         List<Cart> list = null;
@@ -35,7 +39,10 @@ public class CartRepo {
         return list;
     }
 
-
+    /**
+     *
+     * @param cart
+     */
     public void saveCart(Cart cart){
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
@@ -50,7 +57,7 @@ public class CartRepo {
             System.out.println(ex.getMessage());
             System.out.println("Erro");
         }
-//TODO        throw new exeption;
+        //TODO        throw new exeption;
     }
 
 }
