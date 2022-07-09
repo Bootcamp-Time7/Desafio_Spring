@@ -1,5 +1,6 @@
 package com.desafio.Desafiospring.dto;
 
+import com.desafio.Desafiospring.model.Product;
 import lombok.Data;
 
 import java.util.List;
@@ -7,8 +8,7 @@ import java.util.List;
 @Data
 
 public class CartRequestDTO {
-    private int id;
-    private List<ProductRequestDTO> articles;
-    private double total;
+
+    private List<Product> articles;
 
 }

@@ -27,8 +27,7 @@ public class ProductServiceImp implements IproductService{
      */
     @Override
     public List<ProductRequestDTO> getProductAll() throws HandlerException, Error {
-
-        try {
+    try {
             List<Product> listProducts = repo.getProductAll();
             List<ProductRequestDTO> listProductsDTO = listProducts.stream()
                     .map(ProductRequestDTO::new).collect(Collectors.toList());
@@ -38,6 +37,10 @@ public class ProductServiceImp implements IproductService{
         }
     }
 
+    @Override
+    public List<Product> getListForId(List<Product> productList) {
+       return repo.getListForId(productList);
+    }
 
     /**
      *
@@ -49,6 +52,7 @@ public class ProductServiceImp implements IproductService{
     public void saveProductsVoid(List<Product> products) {
         repo.saveProductsVoid(products);
     }
+
 
 
     @Override
@@ -91,6 +95,8 @@ public class ProductServiceImp implements IproductService{
      * @param prestige
      * @return
      */
+
+
     @Override
     public List<ProductRequestDTO> getAllByFilters(Optional<String> category, boolean freeShipping, Optional<String> prestige) {
         List<ProductRequestDTO> lista = null;

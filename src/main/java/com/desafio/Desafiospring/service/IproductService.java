@@ -13,7 +13,11 @@ public interface IproductService {
 
     void saveProductsVoid(List<Product> products);
     //TODO Criar DTO para response e request do carrinho
+
     List<CartRequestDTO> createShoppingCart(List<ProductResponseDTO> products);
+    
+
+    List<Product> getListForId(List<Product> productList);
     List<ProductRequestDTO> getProductAll() throws HandlerException, Error;
     List<ProductRequestDTO> getAllByCategory(String category);
     List<ProductRequestDTO> getAllByFilters(Optional<String> category, boolean freeShipping, Optional<String> prestige);
