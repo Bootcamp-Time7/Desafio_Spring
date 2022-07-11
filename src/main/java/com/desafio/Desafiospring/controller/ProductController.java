@@ -1,17 +1,18 @@
 package com.desafio.Desafiospring.controller;
-import com.desafio.Desafiospring.model.Product;
+
 import com.desafio.Desafiospring.dto.ProductRequestDTO;
+import com.desafio.Desafiospring.dto.ProductResponseDTO;
+import com.desafio.Desafiospring.model.Product;
 import com.desafio.Desafiospring.service.IproductService;
 import com.desafio.exception.*;
 import com.desafio.handler.HandlerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 
 import java.util.List;
@@ -79,8 +80,10 @@ public class ProductController {
      */
     @PostMapping("/insert-articles-request")
     @ExceptionHandler({ CreateException.class})
-    public void saveProductsVoid(@RequestBody List<Product> products){
+    public ResponseEntity<List<ProductResponseDTO>> saveProductsVoid(@RequestBody List<Product> products){
             service.saveProductsVoid(products);
+        List<ProductResponseDTO> productResponseDTOList = ProductResponseDTO.convertForListProdRespDTO(products);
+        return ResponseEntity.ok(productResponseDTOList);
     }
 
 

@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Data
 public class ProductRequestDTO  implements Comparable <ProductRequestDTO> {
     private long productId;
@@ -41,5 +44,10 @@ public int compareTo(ProductRequestDTO compare){
 
     return 0;
 }
+    public static List<ProductRequestDTO> convertForListProdReqDTO(List<Product> listProducts) {
+        return listProducts.stream()
+            .map(ProductRequestDTO::new)
+                .collect(Collectors.toList());
+    }
 
 }
