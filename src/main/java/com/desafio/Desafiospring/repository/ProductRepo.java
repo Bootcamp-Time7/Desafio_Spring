@@ -5,6 +5,7 @@ import com.desafio.Desafiospring.dto.ProductRequestDTO;
 import com.desafio.Desafiospring.model.Product;
 import com.desafio.exception.CreateException;
 import com.desafio.exception.ErrorCallListException;
+import com.desafio.exception.NotFoundException;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -85,17 +86,9 @@ public class ProductRepo {
                 }
             }
         } catch (Exception ex) {
-            System.out.println("Erro");
+            throw new NotFoundException("Produto não localizado");
         }
         return null;
-//        throw new NotFoundException("Produto não localizado");
     }
 
-    /**
-     *
-     * @return
-     */
-    public long contador(){
-        return getProductAll().size();
-    }
 }
